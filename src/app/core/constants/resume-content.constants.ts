@@ -7,7 +7,7 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
     description:
       '6+ years of experience building complex, high-performance web applications across CRM, fintech and e-commerce domains.',
     downloadLabel: 'Download CV',
-    downloadUrl: '/files/CV_Angular_Snezhana-Novitskaya_2026.pdf',
+    downloadUrl: 'files/CV_Angular_Snezhana-Novitskaya_2026.pdf',
     experienceTitle: 'Work Experience',
     readMore: 'Read more',
     collapse: 'Collapse',
@@ -141,7 +141,7 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
     description:
       'Более 6 лет опыта разработки сложных и высоконагруженных web-приложений в fintech, CRM и e-commerce доменах.',
     downloadLabel: 'Скачать резюме',
-    downloadUrl: '/files/CV_Angular_Новицкая-Снежана_2026.pdf',
+    downloadUrl: 'files/CV_Angular_Новицкая-Снежана_2026.pdf',
     experienceTitle: 'Опыт работы',
     readMore: 'Подробнее',
     collapse: 'Свернуть',
