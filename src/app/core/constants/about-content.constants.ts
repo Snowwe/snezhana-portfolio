@@ -38,43 +38,79 @@ export const ABOUT_CONTENT: Record<'en' | 'ru', AboutContent> = {
           'I can take a feature from requirements to production: clarify behavior, build UI, integrate APIs, fix edge cases and polish user experience.',
       },
     ],
+    buildTitle: 'What I build',
+    buildItems: [
+      {
+        title: 'Enterprise admin panels',
+        description:
+          'Complex dashboards, approval flows, filters, reporting pages and internal business tools.',
+      },
+      {
+        title: 'E-commerce platforms',
+        description:
+          'Product management, order flows, pricing configuration, checkout-related interfaces and customer-facing UI.',
+      },
+      {
+        title: 'Data-heavy interfaces',
+        description:
+          'Large tables, advanced filters, exports, reactive forms and UI performance optimization.',
+      },
+    ],
   },
 
   ru: {
     label: 'Обо мне',
     title: 'Frontend-разработчик с фокусом на масштабируемые Angular-приложения',
     intro: [
-      'Я Senior Angular Frontend Developer с 6+ годами опыта разработки сложных web-приложений в fintech, CRM, B2B SaaS и e-commerce доменах.',
-      'Мой основной фокус — Angular, TypeScript, RxJS, Signals, масштабируемая frontend-архитектура, переиспользуемые UI-компоненты и оптимизация производительности интерфейсов с большим количеством данных.',
-      'Мне нравится работать со сложной бизнес-логикой, admin panels, dashboards, фильтрами, reactive forms и чистой UI-архитектурой. Также участвую в code review, технических обсуждениях и развитии frontend-практик команды.',
+      'Я Senior Angular Frontend Developer с более чем 6-летним опытом разработки сложных веб-приложений для финтеха, CRM-систем, B2B SaaS и электронной коммерции.',
+      'Мой основной стек — Angular, TypeScript, RxJS и Signals. Особое внимание уделяю архитектуре приложений, переиспользуемым компонентам и производительности пользовательских интерфейсов.',
+      'Мне нравится работать со сложной бизнес-логикой, административными панелями, аналитическими интерфейсами, фильтрами и сложными формами. Также участвую в код-ревью, технических обсуждениях и развитии инженерных практик команды.',
     ],
     focusTitle: 'Основной фокус',
     focusItems: [
       'Angular 17–21',
       'TypeScript и RxJS',
-      'Signals и reactive state',
+      'Signals и реактивное управление состоянием',
       'Сложные формы и фильтры',
       'UI-архитектура и переиспользуемые компоненты',
       'GraphQL и REST API интеграции',
       'Оптимизация производительности',
-      'Code review и frontend best practices',
+      'Код-ревью и инженерные практики',
     ],
     highlightsTitle: 'Что я привношу в проект',
     highlights: [
       {
-        title: 'Опыт enterprise UI',
+        title: 'Опыт корпоративной разработки',
         description:
-          'Я работала с admin panels, dashboards, таблицами с большим объёмом данных, формами, фильтрами и workflow, где важны поддерживаемость и производительность.',
+          'Я работала с административными панелями, аналитическими интерфейсами, большими таблицами, формами и фильтрами, где особенно важны производительность и поддерживаемость.',
       },
       {
         title: 'Современный Angular-подход',
         description:
-          'Использую современные возможности Angular: Signals, standalone components и reactive patterns, сохраняя архитектуру понятной и практичной.',
+          'Использую современные возможности Angular: Signals, standalone-компоненты и реактивные подходы, сохраняя архитектуру понятной и практичной.',
       },
       {
-        title: 'Ownership',
+        title: 'Ответственность за результат',
         description:
-          'Могу довести функционал от требований до релиза: уточнить поведение, реализовать UI, интегрировать API, обработать edge cases и улучшить UX.',
+          'Могу довести функциональность от идеи до релиза: уточнить требования, реализовать интерфейс, интегрировать API, обработать нестандартные сценарии и улучшить пользовательский опыт.',
+      },
+    ],
+    buildTitle: 'Что я разрабатываю',
+    buildItems: [
+      {
+        title: 'Корпоративные административные системы',
+        description:
+          'Административные панели, системы согласования, отчётность, фильтры и внутренние бизнес-инструменты.',
+      },
+      {
+        title: 'E-commerce платформы',
+        description:
+          'Управление товарами, оформление заказов, настройка цен, личные кабинеты и клиентские интерфейсы.',
+      },
+      {
+        title: 'Сложные бизнес-интерфейсы',
+        description:
+          'Большие таблицы, продвинутые фильтры, экспорты, reactive forms и оптимизация производительности UI.',
       },
     ],
   },

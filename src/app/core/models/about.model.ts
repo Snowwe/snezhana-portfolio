@@ -3,6 +3,11 @@ export interface AboutHighlight {
   description: string;
 }
 
+export interface AboutBuildItem {
+  title: string;
+  description: string;
+}
+
 export interface AboutContent {
   label: string;
   title: string;
@@ -11,4 +16,6 @@ export interface AboutContent {
   focusItems: string[];
   highlightsTitle: string;
   highlights: AboutHighlight[];
+  buildTitle: string;
+  buildItems: AboutBuildItem[];
 }

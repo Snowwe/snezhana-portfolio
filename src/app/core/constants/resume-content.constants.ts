@@ -16,6 +16,7 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
         id: 'clear-blue-design',
         period: '04.2024 — 09.2025',
         company: 'ClearBlueDesign',
+        role: 'Senior Angular Frontend Developer',
         summary:
           'Development of enterprise-level Angular applications for e-commerce and sports-related products.',
         projects: [
@@ -48,6 +49,7 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
         id: 'codiq',
         period: '05.2023 — 03.2024',
         company: 'CodiQ',
+        role: 'Angular Frontend Developer',
         summary: 'Frontend development for an industrial factory automation system.',
         projects: [
           {
@@ -150,22 +152,16 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
         id: 'clear-blue-design',
         period: '04.2024 — 09.2025',
         company: 'ClearBlueDesign',
+        role: 'Senior Angular Frontend Developer',
         summary:
-          'Разработка enterprise-level Angular-приложений для e-commerce платформы и спортивного приложения.',
-        highlights: [
-          'Разрабатывала enterprise-level приложения в сфере fintech и внутренних корпоративных систем.',
-          'Руководила frontend-разработкой внутреннего корпоративного портала в роли Technical Lead.',
-          'Проектировала и реализовывала frontend-архитектуру и переиспользуемые UI-компоненты.',
-          'Работала с NgRx для управления состоянием приложения: store, effects, selectors.',
-          'Участвовала в архитектурных решениях, code review, менторинге и технических интервью.',
-        ],
+          'Разработка крупных Angular-приложений для платформы электронной коммерции и спортивных сервисов.',
         projects: [
           {
             title: 'Printing Source',
             description:
               'E-commerce платформа для оформления и управления заказами печатной продукции.',
             responsibilities: [
-              'Разрабатывала enterprise-level Angular-приложения на Angular 17–18.',
+              'Разрабатывала крупные Angular-приложения на Angular 17–18.',
               'Использовала Angular Signals и современные возможности Angular.',
               'Проектировала переиспользуемые компоненты и модульную архитектуру.',
               'Разрабатывала и оптимизировала сложные интерфейсы с большим объёмом данных: таблицы, формы, фильтры.',
@@ -190,6 +186,7 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
         id: 'codiq',
         period: '05.2023 — 03.2024',
         company: 'CodiQ',
+        role: 'Angular Frontend Developer',
         summary: 'Frontend-разработка для системы автоматизации производственных процессов.',
         projects: [
           {
@@ -212,7 +209,14 @@ export const RESUME_CONTENT: Record<'en' | 'ru', ResumeContent> = {
         company: 'ANDERSEN',
         role: 'Angular Developer / Tech Lead',
         summary:
-          'Разработка enterprise-level приложений в сфере fintech и внутренних корпоративных систем.',
+          'Разработка корпоративных приложений для финансового сектора и внутренних бизнес-систем.',
+        highlights: [
+          'Разрабатывала enterprise-level приложения в сфере fintech и внутренних корпоративных систем.',
+          'Руководила frontend-разработкой внутреннего корпоративного портала в роли Technical Lead.',
+          'Проектировала и реализовывала frontend-архитектуру и переиспользуемые UI-компоненты.',
+          'Работала с NgRx для управления состоянием приложения: store, effects, selectors.',
+          'Участвовала в архитектурных решениях, code review, менторинге и технических интервью.',
+        ],
         projects: [
           {
             title: 'Online Banking',

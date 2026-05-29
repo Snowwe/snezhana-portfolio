@@ -15,6 +15,12 @@ export const APP_CONTENT: Record<'en' | 'ru', AppContent> = {
     resume: 'Resume',
     gameLab: 'Game Lab',
     roadmap: 'Roadmap',
+    infoItems: [
+      {
+        label: 'Experience',
+        value: '6+ years',
+      },
+    ],
   },
 
   ru: {
@@ -25,11 +31,16 @@ export const APP_CONTENT: Record<'en' | 'ru', AppContent> = {
     position: 'Senior Angular Frontend Developer',
 
     description:
-      'Я разрабатываю сложные и масштабируемые frontend-приложения на Angular, TypeScript, RxJS и Signals. Основной фокус — поддерживаемые интерфейсы, реактивные потоки данных и продуманная frontend-архитектура.',
-
+      'Я разрабатываю сложные и масштабируемые веб-приложения на Angular, TypeScript, RxJS и Signals. Основной фокус — поддерживаемая архитектура, реактивные потоки данных и удобные пользовательские интерфейсы.',
     about: 'Обо мне',
     resume: 'Резюме',
     gameLab: 'Game Lab',
     roadmap: 'План',
+    infoItems: [
+      {
+        label: 'Опыт',
+        value: '6+ лет',
+      },
+    ],
   },
 };

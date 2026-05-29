@@ -11,7 +11,7 @@ import { RESUME_CONTENT } from '@core/constants/resume-content.constants';
 export class ResumePage {
   private readonly languageService = inject(LanguageService);
 
-  readonly openedExperienceId = signal<string | null>('clear-blue-design');
+  readonly openedExperienceId = signal<string | null>(null);
 
   readonly content = computed(() => RESUME_CONTENT[this.languageService.language()]);
 
