@@ -1,33 +1,8 @@
 <div class="min-h-screen bg-slate-950 text-slate-100">
   <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-5 sm:px-6 lg:px-8">
     <header
-      class="mb-8 overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/30 backdrop-blur sm:rounded-[2rem]"
+      class="overflow-hidden rounded-t-[2rem] border border-b-0 border-white/10 bg-white/[0.04] shadow-2xl shadow-black/30 backdrop-blur"
     >
-      <div class="flex justify-end px-5 pt-4 sm:px-6 lg:px-8">
-        <div class="flex items-center rounded-full border border-white/10 bg-slate-900/80 p-1">
-          <button
-            type="button"
-            (click)="setLanguage('en')"
-            class="rounded-full px-3 py-1.5 text-xs font-semibold transition"
-            [class.bg-cyan-400]="language() === 'en'"
-            [class.text-slate-950]="language() === 'en'"
-            [class.text-slate-300]="language() !== 'en'"
-          >
-            EN
-          </button>
-
-          <button
-            type="button"
-            (click)="setLanguage('ru')"
-            class="rounded-full px-3 py-1.5 text-xs font-semibold transition"
-            [class.bg-cyan-400]="language() === 'ru'"
-            [class.text-slate-950]="language() === 'ru'"
-            [class.text-slate-300]="language() !== 'ru'"
-          >
-            RU
-          </button>
-        </div>
-      </div>
       <div class="grid gap-6 p-5 sm:p-6 md:grid-cols-[8rem_1fr] md:items-start lg:p-8">
         <div
           class="h-28 w-28 overflow-hidden rounded-3xl border border-cyan-300/30 bg-cyan-300/10 shadow-lg shadow-cyan-950/30 sm:h-32 sm:w-32"
@@ -103,7 +78,7 @@
               href="https://www.linkedin.com/in/snezhana-novitskaya"
               target="_blank"
               rel="noreferrer"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-red-300 hover:text-red-200"
+              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
             >
               LinkedIn
             </a>
@@ -112,7 +87,7 @@
               href="https://github.com/Snowwe"
               target="_blank"
               rel="noreferrer"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-red-300 hover:text-red-200"
+              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
             >
               GitHub
             </a>
@@ -121,51 +96,86 @@
               href="https://t.me/snowweN"
               target="_blank"
               rel="noreferrer"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-red-300 hover:text-red-200"
+              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
             >
               Telegram
             </a>
           </div>
         </div>
       </div>
-
-      <nav
-        class="grid grid-cols-2 gap-4 border-t border-white/10 bg-slate-900/80 px-4 py-2 sm:flex"
-      >
-        <a
-          routerLink="/about"
-          routerLinkActive="bg-cyan-400 text-slate-950"
-          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-        >
-          {{ content().about }}
-        </a>
-
-        <a
-          routerLink="/resume"
-          routerLinkActive="bg-cyan-400 text-slate-950"
-          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-        >
-          {{ content().resume }}
-        </a>
-
-        <a
-          routerLink="/game-lab"
-          routerLinkActive="bg-cyan-400 text-slate-950"
-          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-        >
-          {{ content().gameLab }}
-        </a>
-
-        <a
-          routerLink="/roadmap"
-          routerLinkActive="bg-cyan-400 text-slate-950"
-          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-        >
-          {{ content().roadmap }}
-        </a>
-      </nav>
     </header>
 
+    <nav
+      class="sticky top-0 z-40 mb-8 grid grid-cols-2 gap-4 rounded-b-[2rem] border border-t-0 border-white/10 bg-slate-900/95 p-4 shadow-xl shadow-black/20 backdrop-blur sm:flex"
+    >
+      <a
+        routerLink="/about"
+        routerLinkActive="bg-cyan-400 text-slate-950"
+        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
+      >
+        {{ content().about }}
+      </a>
+
+      <a
+        routerLink="/resume"
+        routerLinkActive="bg-cyan-400 text-slate-950"
+        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
+      >
+        {{ content().resume }}
+      </a>
+      <!-- FUTURE -->
+      <!--      <a-->
+      <!--        routerLink="/game-lab"-->
+      <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
+      <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
+      <!--      >-->
+      <!--        {{ content().gameLab }}-->
+      <!--      </a>-->
+
+      <!--      <a-->
+      <!--        routerLink="/roadmap"-->
+      <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
+      <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
+      <!--      >-->
+      <!--        {{ content().roadmap }}-->
+      <!--      </a>-->
+    </nav>
+    @if (showScrollTop()) {
+    <button
+      type="button"
+      class="fixed bottom-4 left-4 z-50 h-12 w-12 rounded-full border border-cyan-400/20 bg-slate-900/95 text-slate-300 backdrop-blur transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.5)] ring-1 ring-cyan-400/10 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] hover:scale-105 active:scale-95"
+      (click)="scrollToTop()"
+    >
+      ↑
+    </button>
+    }
+    <div class="fixed bottom-4 right-4 z-50">
+      <div
+        class="flex items-center rounded-full border border-cyan-400/20 bg-slate-900/95 p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.45)] ring-1 ring-cyan-400/10 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:border-cyan-300/40 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] active:scale-95"
+      >
+        <button
+          type="button"
+          (click)="setLanguage('en')"
+          class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
+          [class.bg-cyan-400]="language() === 'en'"
+          [class.text-slate-950]="language() === 'en'"
+          [class.text-slate-300]="language() !== 'en'"
+        >
+          EN
+        </button>
+
+        <button
+          type="button"
+          (click)="setLanguage('ru')"
+          class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
+          [class.bg-cyan-400]="language() === 'ru'"
+          [class.text-slate-950]="language() === 'ru'"
+          [class.text-slate-300]="language() !== 'ru'"
+        >
+          RU
+        </button>
+      </div>
+    </div>
     <main class="flex-1">
       <router-outlet />
     </main>
