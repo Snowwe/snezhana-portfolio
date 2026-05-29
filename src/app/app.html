@@ -1,201 +1,221 @@
-<div class="min-h-screen bg-slate-950 text-slate-100">
-  <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-5 sm:px-6 lg:px-8">
-    <header
-      class="overflow-hidden rounded-t-[2rem] border border-b-0 border-white/10 bg-white/[0.04] shadow-2xl shadow-black/30 backdrop-blur"
-    >
-      <div class="grid gap-6 p-5 sm:p-6 md:grid-cols-[8rem_1fr] md:items-start lg:p-8">
-        <div class="space-y-3">
-          <div
-            class="h-28 w-28 overflow-hidden rounded-3xl border border-cyan-300/30 bg-cyan-300/10 shadow-lg shadow-cyan-950/30 sm:h-32 sm:w-32"
-          >
-            <img
-              src="images/profile.jpg"
-              alt="Snezhana Novitskaya"
-              class="h-full w-full object-cover object-top"
-            />
-          </div>
+<div
+  class="relative min-h-screen overflow-hidden bg-[linear-gradient(180deg,#020617_0%,#081226_40%,#020617_100%)] text-slate-100"
+>
+  <div
+    class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.08),transparent_45%)]"
+  ></div>
+  <div class="pointer-events-none fixed inset-0 overflow-hidden">
+    <div
+      class="absolute -left-40 -top-40 h-[32rem] w-[32rem] rounded-full bg-cyan-500/10 blur-3xl"
+    ></div>
 
-          <div class="grid gap-2 sm:w-32">
-            @for (item of content().infoItems; track item.label) {
-            <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-3">
-              <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                {{ item.label }}
-              </p>
+    <div
+      class="absolute right-[-10rem] top-[18rem] h-[36rem] w-[36rem] rounded-full bg-blue-500/10 blur-3xl"
+    ></div>
 
-              <p class="mt-1 text-sm font-semibold text-slate-200">{{ item.value }}</p>
+    <div
+      class="absolute bottom-[-8rem] left-1/3 h-[28rem] w-[28rem] rounded-full bg-cyan-400/5 blur-3xl"
+    ></div>
+  </div>
+  <div class="relative z-10">
+    <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-5 sm:px-6 lg:px-8">
+      <header
+        class="overflow-hidden rounded-t-[2rem] border border-b-0 border-white/10 bg-slate-900/70 backdrop-blur-xl shadow-2xl shadow-black/30 backdrop-blur"
+      >
+        <div class="grid gap-6 p-5 sm:p-6 md:grid-cols-[8rem_1fr] md:items-start lg:p-6">
+          <div class="space-y-3">
+            <div
+              class="h-28 w-28 overflow-hidden rounded-3xl border border-cyan-300/30 bg-cyan-300/10 shadow-lg shadow-cyan-950/30 sm:h-32 sm:w-32"
+            >
+              <img
+                src="images/profile.jpg"
+                alt="Snezhana Novitskaya"
+                class="h-full w-full object-cover object-top"
+              />
             </div>
-            }
+
+            <div class="grid gap-2 sm:w-32">
+              @for (item of content().infoItems; track item.label) {
+              <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-3">
+                <p class="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-cyan-300">
+                  {{ item.label }}
+                </p>
+
+                <p class="mt-1 text-sm font-semibold text-slate-200">{{ item.value }}</p>
+              </div>
+              }
+            </div>
+          </div>
+          <div class="min-w-0">
+            <p
+              class="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300 sm:text-sm"
+            >
+              {{ content().label }}
+            </p>
+
+            <h1
+              class="max-w-3xl bg-gradient-to-r from-white via-white to-cyan-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
+            >
+              {{ content().title }}
+            </h1>
+
+            <p class="mt-3 max-w-2xl text-xl font-semibold text-slate-200">
+              {{ content().position }}
+            </p>
+
+            <p class="mt-4 max-w-3xl text-base leading-7 text-slate-300">
+              {{ content().description }}
+            </p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <span
+                class="rounded-full rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                Angular 17–21
+              </span>
+
+              <span
+                class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                TypeScript
+              </span>
+
+              <span
+                class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                RxJS
+              </span>
+
+              <span
+                class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                Signals
+              </span>
+
+              <span
+                class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                GraphQL
+              </span>
+
+              <span
+                class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
+              >
+                UI Architecture
+              </span>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a
+                href="https://www.linkedin.com/in/snezhana-novitskaya"
+                target="_blank"
+                rel="noreferrer"
+                class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+              >
+                LinkedIn
+              </a>
+
+              <a
+                href="mailto:snowwe25@gmail.com"
+                class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+              >
+                Email
+              </a>
+
+              <a
+                href="tel:+375297301032"
+                class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+              >
+                Phone
+              </a>
+
+              <a
+                href="https://t.me/snowweN"
+                target="_blank"
+                rel="noreferrer"
+                class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+              >
+                Telegram
+              </a>
+            </div>
           </div>
         </div>
-        <div class="min-w-0">
-          <p
-            class="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300 sm:text-sm"
+      </header>
+
+      <nav
+        class="sticky top-0 z-40 mb-8 grid grid-cols-2 gap-4 rounded-b-[2rem] border border-t-0 border-white/10 bg-slate-900/95 p-4 shadow-xl shadow-black/20 backdrop-blur sm:flex"
+      >
+        <a
+          routerLink="/about"
+          routerLinkActive="bg-cyan-400 text-slate-950"
+          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
+        >
+          {{ content().about }}
+        </a>
+
+        <a
+          routerLink="/resume"
+          routerLinkActive="bg-cyan-400 text-slate-950"
+          class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
+        >
+          {{ content().resume }}
+        </a>
+        <!-- FUTURE -->
+        <!--      <a-->
+        <!--        routerLink="/game-lab"-->
+        <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
+        <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
+        <!--      >-->
+        <!--        {{ content().gameLab }}-->
+        <!--      </a>-->
+
+        <!--      <a-->
+        <!--        routerLink="/roadmap"-->
+        <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
+        <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
+        <!--      >-->
+        <!--        {{ content().roadmap }}-->
+        <!--      </a>-->
+      </nav>
+      @if (showScrollTop()) {
+      <button
+        type="button"
+        class="fixed bottom-4 left-4 z-50 h-12 w-12 rounded-full border border-cyan-400/20 bg-slate-900/95 text-slate-300 backdrop-blur transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.5)] ring-1 ring-cyan-400/10 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] hover:scale-105 active:scale-95"
+        (click)="scrollToTop()"
+      >
+        ↑
+      </button>
+      }
+      <div class="fixed bottom-4 right-4 z-50">
+        <div
+          class="flex items-center rounded-full border border-cyan-400/20 bg-slate-900/95 p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.45)] ring-1 ring-cyan-400/10 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:border-cyan-300/40 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] active:scale-95"
+        >
+          <button
+            type="button"
+            (click)="setLanguage('en')"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
+            [class.bg-cyan-400]="language() === 'en'"
+            [class.text-slate-950]="language() === 'en'"
+            [class.text-slate-300]="language() !== 'en'"
           >
-            {{ content().label }}
-          </p>
+            EN
+          </button>
 
-          <h1
-            class="max-w-3xl bg-gradient-to-r from-white via-white to-cyan-300 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl lg:text-6xl"
+          <button
+            type="button"
+            (click)="setLanguage('ru')"
+            class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
+            [class.bg-cyan-400]="language() === 'ru'"
+            [class.text-slate-950]="language() === 'ru'"
+            [class.text-slate-300]="language() !== 'ru'"
           >
-            {{ content().title }}
-          </h1>
-
-          <p class="mt-3 max-w-2xl text-xl font-semibold text-slate-200">
-            {{ content().position }}
-          </p>
-
-          <p class="mt-4 max-w-3xl text-base leading-7 text-slate-300">
-            {{ content().description }}
-          </p>
-
-          <div class="mt-5 flex flex-wrap gap-2">
-            <span
-              class="rounded-full rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              Angular 17–21
-            </span>
-
-            <span
-              class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              TypeScript
-            </span>
-
-            <span
-              class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              RxJS
-            </span>
-
-            <span
-              class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              Signals
-            </span>
-
-            <span
-              class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              GraphQL
-            </span>
-
-            <span
-              class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
-            >
-              UI Architecture
-            </span>
-          </div>
-
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a
-              href="https://www.linkedin.com/in/snezhana-novitskaya"
-              target="_blank"
-              rel="noreferrer"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
-            >
-              LinkedIn
-            </a>
-
-            <a
-              href="mailto:snowwe25@gmail.com"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
-            >
-              Email
-            </a>
-
-            <a
-              href="tel:+375297301032"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
-            >
-              Phone
-            </a>
-
-            <a
-              href="https://t.me/snowweN"
-              target="_blank"
-              rel="noreferrer"
-              class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
-            >
-              Telegram
-            </a>
-          </div>
+            RU
+          </button>
         </div>
       </div>
-    </header>
-
-    <nav
-      class="sticky top-0 z-40 mb-8 grid grid-cols-2 gap-4 rounded-b-[2rem] border border-t-0 border-white/10 bg-slate-900/95 p-4 shadow-xl shadow-black/20 backdrop-blur sm:flex"
-    >
-      <a
-        routerLink="/about"
-        routerLinkActive="bg-cyan-400 text-slate-950"
-        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-      >
-        {{ content().about }}
-      </a>
-
-      <a
-        routerLink="/resume"
-        routerLinkActive="bg-cyan-400 text-slate-950"
-        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"
-      >
-        {{ content().resume }}
-      </a>
-      <!-- FUTURE -->
-      <!--      <a-->
-      <!--        routerLink="/game-lab"-->
-      <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
-      <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
-      <!--      >-->
-      <!--        {{ content().gameLab }}-->
-      <!--      </a>-->
-
-      <!--      <a-->
-      <!--        routerLink="/roadmap"-->
-      <!--        routerLinkActive="bg-cyan-400 text-slate-950"-->
-      <!--        class="rounded-2xl px-4 py-3 text-center text-sm font-semibold text-slate-300 transition hover:text-white"-->
-      <!--      >-->
-      <!--        {{ content().roadmap }}-->
-      <!--      </a>-->
-    </nav>
-    @if (showScrollTop()) {
-    <button
-      type="button"
-      class="fixed bottom-4 left-4 z-50 h-12 w-12 rounded-full border border-cyan-400/20 bg-slate-900/95 text-slate-300 backdrop-blur transition-all duration-300 shadow-[0_10px_35px_rgba(0,0,0,0.5)] ring-1 ring-cyan-400/10 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] hover:scale-105 active:scale-95"
-      (click)="scrollToTop()"
-    >
-      ↑
-    </button>
-    }
-    <div class="fixed bottom-4 right-4 z-50">
-      <div
-        class="flex items-center rounded-full border border-cyan-400/20 bg-slate-900/95 p-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.45)] ring-1 ring-cyan-400/10 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:border-cyan-300/40 hover:ring-cyan-300/20 hover:shadow-[0_12px_40px_rgba(34,211,238,0.18)] active:scale-95"
-      >
-        <button
-          type="button"
-          (click)="setLanguage('en')"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
-          [class.bg-cyan-400]="language() === 'en'"
-          [class.text-slate-950]="language() === 'en'"
-          [class.text-slate-300]="language() !== 'en'"
-        >
-          EN
-        </button>
-
-        <button
-          type="button"
-          (click)="setLanguage('ru')"
-          class="rounded-full px-3 py-1.5 text-sm font-semibold transition-all duration-200 hover:text-cyan-100 active:scale-95"
-          [class.bg-cyan-400]="language() === 'ru'"
-          [class.text-slate-950]="language() === 'ru'"
-          [class.text-slate-300]="language() !== 'ru'"
-        >
-          RU
-        </button>
-      </div>
+      <main class="flex-1">
+        <router-outlet />
+      </main>
     </div>
-    <main class="flex-1">
-      <router-outlet />
-    </main>
   </div>
 </div>

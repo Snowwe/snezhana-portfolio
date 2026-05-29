@@ -14,7 +14,7 @@
       <a
         [href]="content().downloadUrl"
         target="_blank"
-        class="inline-flex w-fit rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+        class="inline-flex w-fit rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 shadow-[0_0_30px_rgba(34,211,238,0.25)] hover:scale-105"
       >
         {{ content().downloadLabel }}
       </a>
@@ -32,7 +32,9 @@
           class="absolute left-[-0.3rem] top-2 h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_20px_rgba(34,211,238,0.5)]"
         ></div>
 
-        <div class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70">
+        <div
+          class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/30 hover:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+        >
           <button
             type="button"
             class="w-full p-5 text-left transition hover:bg-white/[0.03]"
@@ -80,17 +82,6 @@
 
           @if (isOpened(experience.id)) {
           <div class="animate-[fadeIn_0.25s_ease-out] border-t border-white/10 p-5">
-            @if (experience.highlights?.length) {
-            <ul class="mb-6 space-y-2">
-              @for (highlight of experience.highlights; track highlight) {
-              <li class="flex gap-3 text-slate-300">
-                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300"></span>
-                <span>{{ highlight }}</span>
-              </li>
-              }
-            </ul>
-            }
-
             <div class="space-y-6">
               @for (project of experience.projects; track project.title) {
               <section class="rounded-xl border border-white/10 bg-white/[0.02] p-4">
