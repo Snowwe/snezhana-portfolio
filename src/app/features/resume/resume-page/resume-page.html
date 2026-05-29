@@ -62,15 +62,24 @@
               </div>
 
               <div
-                class="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300"
+                class="flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-cyan-300 hover:text-cyan-200"
               >
-                {{ isOpened(experience.id) ? content().collapse : content().readMore }}
+                <span>
+                  {{ isOpened(experience.id) ? content().collapse : content().readMore }}
+                </span>
+
+                <span
+                  class="transition-transform duration-300"
+                  [class.rotate-180]="isOpened(experience.id)"
+                >
+                  ↓
+                </span>
               </div>
             </div>
           </button>
 
           @if (isOpened(experience.id)) {
-          <div class="border-t border-white/10 p-5">
+          <div class="animate-[fadeIn_0.25s_ease-out] border-t border-white/10 p-5">
             @if (experience.highlights?.length) {
             <ul class="mb-6 space-y-2">
               @for (highlight of experience.highlights; track highlight) {
@@ -103,6 +112,7 @@
                   <span
                     class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200"
                   >
+                    <span class="mr-1 text-cyan-300">•</span>
                     {{ tech }}
                   </span>
                   }
