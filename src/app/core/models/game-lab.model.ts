@@ -16,6 +16,9 @@ export interface GameLabContent {
   description: string;
   currentProjectTitle: string;
   currentProjectItems: string[];
+  mvpTitle: string;
+  mvpName: string;
+  mvpDescription: string;
   roadmapTitle: string;
   roadmap: GameLabRoadmapItem[];
   journalTitle: string;

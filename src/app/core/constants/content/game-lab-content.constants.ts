@@ -3,131 +3,179 @@ import { GameLabContent } from '@core/models/game-lab.model';
 export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
   en: {
     label: 'Game Lab',
-    title: 'Angular + Phaser + NestJS learning project',
+    title: 'Remote Job Hunter: career simulator in progress',
     description:
-      'A practical learning space where I document my transition from Angular frontend development into browser game development.',
+      'A learning project where I combine Angular, Phaser, NestJS and later Three.js to build a small browser game about growing as a remote frontend developer.',
     currentProjectTitle: 'Current Project',
     currentProjectItems: [
-      'Learning Phaser as a 2D game framework for browser games.',
-      'Building a small game step by step with clean architecture and TypeScript.',
-      'Exploring how frontend skills can be applied to game UI, real-time interactions and interactive systems.',
+      'Building a career simulator where the player improves skills, applies to remote jobs and grows from Junior to Senior / Lead.',
+      'Starting with Angular game logic and UI, then adding Phaser as the visual game layer.',
+      'Documenting each step: game design, architecture decisions, state management and implementation details.',
+      'Later stages will include NestJS backend, WebSockets, leaderboard and cloud saves.',
     ],
+    mvpTitle: 'MVP Idea',
     roadmapTitle: 'Learning Roadmap',
     roadmap: [
       {
-        title: 'Phaser Basics',
-        description: 'Scenes, sprites, assets, input and first playable prototype.',
+        title: 'Game concept and MVP',
+        description:
+          'Define the core loop: learn skills, spend energy, apply to jobs, pass interviews and receive offers.',
         status: 'current',
       },
       {
-        title: 'Game Loop',
-        description: 'Understanding update cycles, FPS and frame-based logic.',
+        title: 'Angular game state',
+        description:
+          'Create player stats, actions, job offers, event log and game rules using TypeScript and Signals.',
         status: 'planned',
       },
       {
-        title: 'Physics',
-        description: 'Movement, collisions, boundaries and simple interactions.',
+        title: 'Phaser basics',
+        description:
+          'Add Phaser scene, render the player, simple world objects and connect visual layer with Angular state.',
         status: 'planned',
       },
       {
-        title: 'Tilemaps',
-        description: 'Creating maps, layers, obstacles and reusable level structure.',
+        title: 'Game loop',
+        description:
+          'Understand update cycles, frame-based logic, timers and how browser games differ from regular SPA apps.',
         status: 'planned',
       },
       {
-        title: 'Multiplayer',
-        description: 'Preparing the game for real-time player interactions.',
+        title: 'Job board mechanics',
+        description:
+          'Generate vacancies with requirements, salary ranges and interview difficulty.',
         status: 'planned',
       },
       {
-        title: 'NestJS Backend',
-        description: 'Backend API, rooms, leaderboard and game state management.',
+        title: 'Interview system',
+        description:
+          'Create technical interview events based on skills: Angular, TypeScript, RxJS, English and system design.',
         status: 'planned',
       },
       {
-        title: 'WebSockets',
-        description: 'Real-time communication between players and the server.',
+        title: 'NestJS backend',
+        description:
+          'Add backend API for saves, leaderboard, player profiles and long-term progression.',
+        status: 'planned',
+      },
+      {
+        title: 'WebSockets and leaderboard',
+        description: 'Add real-time leaderboard updates and shared game events.',
+        status: 'planned',
+      },
+      {
+        title: 'Three.js playground',
+        description:
+          'Experiment with a small 3D virtual office scene as a separate learning module.',
         status: 'planned',
       },
       {
         title: 'Deployment',
-        description: 'Publishing the game demo and documenting the architecture.',
+        description:
+          'Publish playable demo, document architecture and keep progress visible in the portfolio.',
         status: 'planned',
       },
     ],
+    mvpName: 'Remote Job Hunter',
+    mvpDescription:
+      'Career simulator where the player learns skills, applies to remote jobs, passes interviews and grows from Junior to Senior / Lead.',
     journalTitle: 'Dev Journal',
     journal: [
       {
         day: 'Day 1',
-        title: 'Project direction',
+        title: 'Portfolio foundation',
         description:
-          'Defined the learning path: Angular portfolio, Phaser game page, later NestJS backend and Three.js playground.',
+          'Created the bilingual Angular portfolio, deployed it to GitHub Pages and prepared the Game Lab section.',
       },
       {
         day: 'Day 2',
-        title: 'Game Lab structure',
-        description: 'Creating a dedicated page to document progress, roadmap and technical notes.',
+        title: 'Game direction',
+        description:
+          'Selected Remote Job Hunter as the main game idea because it connects frontend development, career growth and real experience with job search.',
       },
       {
         day: 'Day 3',
-        title: 'First playable prototype',
+        title: 'MVP planning',
         description:
-          'Next step: initialize Phaser, create the first scene and render a simple player object.',
+          'Next step: define models for player stats, skills, actions and job offers before adding Phaser.',
       },
     ],
   },
 
   ru: {
     label: 'Game Lab',
-    title: 'Учебный проект Angular + Phaser + NestJS',
+    title: 'Remote Job Hunter: карьерный симулятор в разработке',
     description:
-      'Раздел, где я пошагово изучаю разработку браузерных игр и показываю, как frontend-опыт можно применять в интерактивных проектах.',
+      'Учебный проект, в котором я объединяю Angular, Phaser, NestJS и позже Three.js, чтобы создать небольшую браузерную игру о развитии frontend-разработчика и поиске удалённой работы.',
     currentProjectTitle: 'Текущий проект',
     currentProjectItems: [
-      'Изучаю Phaser как 2D-фреймворк для браузерных игр.',
-      'Постепенно создаю небольшую игру на TypeScript с понятной архитектурой.',
-      'Разбираю, как frontend-навыки помогают в игровых интерфейсах, интерактивности и real-time логике.',
+      'Создаю карьерный симулятор, где игрок прокачивает навыки, откликается на удалённые вакансии и растёт от Junior до Senior / Lead.',
+      'Начинаю с игровой логики и интерфейса на Angular, затем добавлю Phaser как визуальный игровой слой.',
+      'Документирую каждый этап: игровую механику, архитектурные решения, управление состоянием и детали реализации.',
+      'На следующих этапах добавлю backend на NestJS, WebSockets, таблицу лидеров и сохранение прогресса.',
     ],
+    mvpTitle: 'Идея MVP',
+    mvpName: 'Remote Job Hunter',
+    mvpDescription:
+      'Карьерный симулятор, в котором игрок изучает технологии, откликается на удалённые вакансии, проходит интервью и развивается от Junior до Senior и Lead.',
     roadmapTitle: 'План изучения',
     roadmap: [
       {
-        title: 'Основы Phaser',
-        description: 'Сцены, объекты, ресурсы, управление и первый игровой прототип.',
+        title: 'Концепция игры и MVP',
+        description:
+          'Определить основной игровой цикл: изучать навыки, тратить энергию, откликаться на вакансии, проходить интервью и получать офферы.',
         status: 'current',
       },
       {
+        title: 'Игровое состояние на Angular',
+        description:
+          'Создать характеристики игрока, действия, вакансии, журнал событий и правила игры с помощью TypeScript и Signals.',
+        status: 'planned',
+      },
+      {
+        title: 'Основы Phaser',
+        description:
+          'Добавить сцену Phaser, отрисовать игрока, простые объекты мира и связать визуальный слой с состоянием Angular.',
+        status: 'planned',
+      },
+      {
         title: 'Игровой цикл',
-        description: 'Как работает обновление игры, FPS и логика по кадрам.',
+        description:
+          'Разобрать обновление игры, логику по кадрам, таймеры и отличие браузерной игры от обычного SPA-приложения.',
         status: 'planned',
       },
       {
-        title: 'Физика',
-        description: 'Движение, столкновения, границы карты и простые взаимодействия.',
+        title: 'Механика вакансий',
+        description:
+          'Генерировать вакансии с требованиями, зарплатной вилкой и сложностью интервью.',
         status: 'planned',
       },
       {
-        title: 'Карты уровней',
-        description: 'Создание карт, слоёв, препятствий и структуры уровней.',
-        status: 'planned',
-      },
-      {
-        title: 'Мультиплеер',
-        description: 'Подготовка игры к взаимодействию нескольких игроков.',
+        title: 'Система интервью',
+        description:
+          'Создать события технических интервью на основе навыков: Angular, TypeScript, RxJS, English и system design.',
         status: 'planned',
       },
       {
         title: 'Backend на NestJS',
-        description: 'API, комнаты, таблица лидеров и управление состоянием игры.',
+        description:
+          'Добавить API для сохранений, таблицы лидеров, профиля игрока и долгосрочного прогресса.',
         status: 'planned',
       },
       {
-        title: 'WebSockets',
-        description: 'Обмен данными между игроками и сервером в реальном времени.',
+        title: 'WebSockets и таблица лидеров',
+        description: 'Добавить обновление рейтинга в реальном времени и общие игровые события.',
+        status: 'planned',
+      },
+      {
+        title: 'Three.js playground',
+        description: 'Отдельно поэкспериментировать с небольшой 3D-сценой виртуального офиса.',
         status: 'planned',
       },
       {
         title: 'Деплой',
-        description: 'Публикация демо и описание архитектуры проекта.',
+        description:
+          'Опубликовать играбельное демо, описать архитектуру и показывать прогресс в портфолио.',
         status: 'planned',
       },
     ],
@@ -135,21 +183,21 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
     journal: [
       {
         day: 'День 1',
-        title: 'Выбор направления',
+        title: 'Основа портфолио',
         description:
-          'Определила путь изучения: Angular-портфолио, страница Game Lab, позже backend на NestJS и Three.js playground.',
+          'Создала двуязычное Angular-портфолио, выложила его на GitHub Pages и подготовила раздел Game Lab.',
       },
       {
         day: 'День 2',
-        title: 'Структура Game Lab',
+        title: 'Выбор идеи игры',
         description:
-          'Создаю отдельную страницу для прогресса, плана изучения и технических заметок.',
+          'Выбрала Remote Job Hunter как основную идею, потому что она объединяет frontend-разработку, карьерный рост и реальный опыт поиска работы.',
       },
       {
         day: 'День 3',
-        title: 'Первый игровой прототип',
+        title: 'Планирование MVP',
         description:
-          'Следующий шаг: подключить Phaser, создать первую сцену и отрисовать простой объект игрока.',
+          'Следующий шаг: описать модели игрока, навыков, действий и вакансий до подключения Phaser.',
       },
     ],
   },
