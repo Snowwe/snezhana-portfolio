@@ -17,6 +17,7 @@ export class GamePanel {
 
   readonly player = this.gameStateService.player;
   readonly totalSkill = this.gameStateService.totalSkill;
+  readonly log = this.gameStateService.log;
 
   readonly content = computed(() => GAME_PANEL_CONTENT[this.languageService.language()]);
 
@@ -38,5 +39,9 @@ export class GamePanel {
 
   rest(): void {
     this.gameStateService.rest();
+  }
+
+  resetGame(): void {
+    this.gameStateService.resetGame();
   }
 }

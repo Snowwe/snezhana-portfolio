@@ -1,6 +1,8 @@
 import { Injectable, computed, signal } from '@angular/core';
 
-import { DEFAULT_PLAYER } from '../constants/default-player.constants';
+import { DEFAULT_PLAYER } from '@features/remote-job-hunter/constants/default-player.constants';
+import { JOB_OFFERS } from '@features/remote-job-hunter/constants/job-offers.constants';
+import { GameLogEntry } from '@features/remote-job-hunter/models/game-log-entry.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +15,23 @@ export class GameStateService {
 
     return player.angular + player.typescript + player.rxjs + player.english;
   });
+  readonly availableJobs = computed(() => {
+    const player = this.player();
+
+    return JOB_OFFERS.filter(
+      (job) =>
+        player.angular >= job.requiredAngular &&
+        player.typescript >= job.requiredTypescript &&
+        player.rxjs >= job.requiredRxjs &&
+        player.english >= job.requiredEnglish,
+    );
+  });
+  readonly log = signal<GameLogEntry[]>([
+    {
+      timestamp: new Date().toLocaleTimeString(),
+      message: 'Game started',
+    },
+  ]);
 
   learnAngular(): void {
     this.player.update((player) => ({
@@ -21,6 +40,7 @@ export class GameStateService {
       energy: Math.max(player.energy - 10, 0),
       motivation: Math.max(player.motivation - 2, 0),
     }));
+    this.addLog('Studied Angular (+5)');
   }
 
   learnTypescript(): void {
@@ -30,6 +50,7 @@ export class GameStateService {
       energy: Math.max(player.energy - 10, 0),
       motivation: Math.max(player.motivation - 2, 0),
     }));
+    this.addLog('Studied TypeScript (+5)');
   }
 
   practiceRxjs(): void {
@@ -39,6 +60,7 @@ export class GameStateService {
       energy: Math.max(player.energy - 12, 0),
       motivation: Math.max(player.motivation - 3, 0),
     }));
+    this.addLog('Studied RxJS (+4)');
   }
 
   learnEnglish(): void {
@@ -48,6 +70,7 @@ export class GameStateService {
       energy: Math.max(player.energy - 8, 0),
       motivation: Math.max(player.motivation - 1, 0),
     }));
+    this.addLog('Studied English (+3)');
   }
 
   rest(): void {
@@ -56,5 +79,28 @@ export class GameStateService {
       energy: Math.min(player.energy + 25, 100),
       motivation: Math.min(player.motivation + 10, 100),
     }));
+    this.addLog('Rested and recovered energy');
+  }
+
+  resetGame(): void {
+    this.player.set(structuredClone(DEFAULT_PLAYER));
+    this.log.set([
+      {
+        timestamp: new Date().toLocaleTimeString(),
+        message: 'Game reset',
+      },
+    ]);
+  }
+
+  private addLog(message: string): void {
+    this.log.update((entries) =>
+      [
+        {
+          timestamp: new Date().toLocaleTimeString(),
+          message,
+        },
+        ...entries,
+      ].slice(0, 5),
+    );
   }
 }

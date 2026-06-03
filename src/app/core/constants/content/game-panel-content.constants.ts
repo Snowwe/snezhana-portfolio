@@ -28,6 +28,7 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
       practiceRxjs: 'Practice RxJS',
       learnEnglish: 'Learn English',
       rest: 'Rest',
+      reset: 'Reset game',
     },
   },
 
@@ -59,6 +60,7 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
       practiceRxjs: 'Практиковать RxJS',
       learnEnglish: 'Учить английский',
       rest: 'Отдыхать',
+      reset: 'Сбросить игру',
     },
   },
 };

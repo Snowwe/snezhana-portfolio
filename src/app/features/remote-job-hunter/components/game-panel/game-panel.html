@@ -10,10 +10,20 @@
       <p class="mt-3 max-w-3xl leading-7 text-slate-300">{{ content().description }}</p>
     </div>
 
-    <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3">
-      <p class="text-sm text-cyan-200">{{ content().totalSkill }}</p>
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-start">
+      <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3">
+        <p class="text-sm text-cyan-200">{{ content().totalSkill }}</p>
 
-      <p class="mt-1 text-2xl font-bold text-white">{{ totalSkill() }}</p>
+        <p class="mt-1 text-2xl font-bold text-white">{{ totalSkill() }}</p>
+      </div>
+
+      <button
+        type="button"
+        class="inline-flex min-h-[84px] items-center justify-center rounded-2xl bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition-all duration-300 hover:bg-cyan-300 hover:scale-105 shadow-[0_0_30px_rgba(34,211,238,0.25)]"
+        (click)="resetGame()"
+      >
+        {{ content().actions.reset }}
+      </button>
     </div>
   </div>
 
@@ -64,7 +74,7 @@
   <div class="mt-6 flex flex-wrap gap-3">
     <button
       type="button"
-      class="rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)] active:scale-95"
       (click)="learnAngular()"
     >
       {{ content().actions.learnAngular }}
@@ -72,7 +82,7 @@
 
     <button
       type="button"
-      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)] active:scale-95"
       (click)="learnTypescript()"
     >
       {{ content().actions.learnTypescript }}
@@ -80,7 +90,7 @@
 
     <button
       type="button"
-      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)] active:scale-95"
       (click)="practiceRxjs()"
     >
       {{ content().actions.practiceRxjs }}
@@ -88,7 +98,7 @@
 
     <button
       type="button"
-      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)] active:scale-95"
       (click)="learnEnglish()"
     >
       {{ content().actions.learnEnglish }}
@@ -96,10 +106,23 @@
 
     <button
       type="button"
-      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)] active:scale-95"
       (click)="rest()"
     >
       {{ content().actions.rest }}
     </button>
   </div>
+  <section class="mt-6">
+    <h4 class="mb-4 text-lg font-bold text-white">Activity Log</h4>
+
+    <div class="space-y-1">
+      @for (entry of log(); track $index) {
+      <div class="flex gap-3 text-sm">
+        <span class="text-cyan-300"> {{ entry.timestamp }} </span>
+
+        <span class="text-slate-300"> {{ entry.message }} </span>
+      </div>
+      }
+    </div>
+  </section>
 </section>

@@ -25,5 +25,6 @@ export interface GamePanelContent {
     practiceRxjs: string;
     learnEnglish: string;
     rest: string;
+    reset: string;
   };
 }
