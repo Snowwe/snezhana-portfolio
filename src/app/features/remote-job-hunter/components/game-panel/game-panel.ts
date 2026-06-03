@@ -3,7 +3,7 @@ import { Component, computed, inject } from '@angular/core';
 import { GAME_PANEL_CONTENT } from '@core/constants/content/game-panel-content.constants';
 import { LanguageService } from '@core/services/language';
 
-import { GameStateService } from '../../services/game-state.service';
+import { GameStateService } from '@features/remote-job-hunter/services/game-state.service';
 
 @Component({
   selector: 'app-game-panel',

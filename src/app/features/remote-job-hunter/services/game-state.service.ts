@@ -3,6 +3,7 @@ import { Injectable, computed, signal } from '@angular/core';
 import { DEFAULT_PLAYER } from '@features/remote-job-hunter/constants/default-player.constants';
 import { JOB_OFFERS } from '@features/remote-job-hunter/constants/job-offers.constants';
 import { GameLogEntry } from '@features/remote-job-hunter/models/game-log-entry.model';
+import { JobOffer } from '@features/remote-job-hunter/models/job-offer.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,17 +16,18 @@ export class GameStateService {
 
     return player.angular + player.typescript + player.rxjs + player.english;
   });
-  readonly availableJobs = computed(() => {
+  readonly jobs = computed(() =>
+    JOB_OFFERS.map((job) => ({
+      ...job,
+      available: this.canApply(job),
+    })),
+  );
+
+  private canApply(job: JobOffer): boolean {
     const player = this.player();
 
-    return JOB_OFFERS.filter(
-      (job) =>
-        player.angular >= job.requiredAngular &&
-        player.typescript >= job.requiredTypescript &&
-        player.rxjs >= job.requiredRxjs &&
-        player.english >= job.requiredEnglish,
-    );
-  });
+    return job.requirements.every((requirement) => player[requirement.skill] >= requirement.value);
+  }
   readonly log = signal<GameLogEntry[]>([
     {
       timestamp: new Date().toLocaleTimeString(),
