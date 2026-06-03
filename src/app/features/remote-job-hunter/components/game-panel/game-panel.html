@@ -1,0 +1,105 @@
+<section class="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-xl shadow-black/20">
+  <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+        {{ content().label }}
+      </p>
+
+      <h3 class="text-2xl font-bold text-white">{{ content().title }}</h3>
+
+      <p class="mt-3 max-w-3xl leading-7 text-slate-300">{{ content().description }}</p>
+    </div>
+
+    <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-3">
+      <p class="text-sm text-cyan-200">{{ content().totalSkill }}</p>
+
+      <p class="mt-1 text-2xl font-bold text-white">{{ totalSkill() }}</p>
+    </div>
+  </div>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+      <p class="text-sm text-slate-400">{{ content().stats.level }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().level }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+      <p class="text-sm text-slate-400">{{ content().stats.money }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">${{ player().money }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+      <p class="text-sm text-slate-400">{{ content().stats.energy }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().energy }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+      <p class="text-sm text-slate-400">{{ content().stats.motivation }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().motivation }}</p>
+    </article>
+  </div>
+
+  <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <article class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+      <p class="text-sm text-cyan-200">{{ content().skills.angular }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().angular }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+      <p class="text-sm text-cyan-200">{{ content().skills.typescript }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().typescript }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+      <p class="text-sm text-cyan-200">{{ content().skills.rxjs }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().rxjs }}</p>
+    </article>
+
+    <article class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+      <p class="text-sm text-cyan-200">{{ content().skills.english }}</p>
+      <p class="mt-1 text-2xl font-bold text-white">{{ player().english }}</p>
+    </article>
+  </div>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <button
+      type="button"
+      class="rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
+      (click)="learnAngular()"
+    >
+      {{ content().actions.learnAngular }}
+    </button>
+
+    <button
+      type="button"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      (click)="learnTypescript()"
+    >
+      {{ content().actions.learnTypescript }}
+    </button>
+
+    <button
+      type="button"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      (click)="practiceRxjs()"
+    >
+      {{ content().actions.practiceRxjs }}
+    </button>
+
+    <button
+      type="button"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      (click)="learnEnglish()"
+    >
+      {{ content().actions.learnEnglish }}
+    </button>
+
+    <button
+      type="button"
+      class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+      (click)="rest()"
+    >
+      {{ content().actions.rest }}
+    </button>
+  </div>
+</section>
