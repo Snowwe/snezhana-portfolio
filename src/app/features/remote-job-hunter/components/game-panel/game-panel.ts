@@ -4,6 +4,7 @@ import { GAME_PANEL_CONTENT } from '@core/constants/content/game-panel-content.c
 import { LanguageService } from '@core/services/language';
 
 import { GameStateService } from '@features/remote-job-hunter/services/game-state.service';
+import { AnalyticsService } from '@core/services/analytics';
 
 @Component({
   selector: 'app-game-panel',
@@ -14,6 +15,7 @@ import { GameStateService } from '@features/remote-job-hunter/services/game-stat
 export class GamePanel {
   private readonly gameStateService = inject(GameStateService);
   private readonly languageService = inject(LanguageService);
+  private readonly analyticsService = inject(AnalyticsService);
 
   readonly player = this.gameStateService.player;
   readonly totalSkill = this.gameStateService.totalSkill;
@@ -43,5 +45,6 @@ export class GamePanel {
 
   resetGame(): void {
     this.gameStateService.resetGame();
+    this.analyticsService.trackEvent('game_reset');
   }
 }

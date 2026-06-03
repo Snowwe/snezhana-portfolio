@@ -1,6 +1,8 @@
 import { Component, computed, inject, signal } from '@angular/core';
+
 import { LanguageService } from '@core/services/language';
 import { RESUME_CONTENT } from '@core/constants/resume-content.constants';
+import { AnalyticsService } from '@core/services/analytics';
 
 @Component({
   selector: 'app-resume-page',
@@ -10,6 +12,7 @@ import { RESUME_CONTENT } from '@core/constants/resume-content.constants';
 })
 export class ResumePage {
   private readonly languageService = inject(LanguageService);
+  private readonly analyticsService = inject(AnalyticsService);
 
   readonly openedExperienceId = signal<string | null>(null);
 
@@ -21,5 +24,11 @@ export class ResumePage {
 
   isOpened(id: string): boolean {
     return this.openedExperienceId() === id;
+  }
+
+  trackCvDownload(): void {
+    this.analyticsService.trackEvent('download_cv', {
+      language: this.languageService.language(),
+    });
   }
 }

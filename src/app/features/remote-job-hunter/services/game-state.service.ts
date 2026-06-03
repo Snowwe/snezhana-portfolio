@@ -22,12 +22,6 @@ export class GameStateService {
       available: this.canApply(job),
     })),
   );
-
-  private canApply(job: JobOffer): boolean {
-    const player = this.player();
-
-    return job.requirements.every((requirement) => player[requirement.skill] >= requirement.value);
-  }
   readonly log = signal<GameLogEntry[]>([
     {
       timestamp: new Date().toLocaleTimeString(),
@@ -92,6 +86,12 @@ export class GameStateService {
         message: 'Game reset',
       },
     ]);
+  }
+
+  private canApply(job: JobOffer): boolean {
+    const player = this.player();
+
+    return job.requirements.every((requirement) => player[requirement.skill] >= requirement.value);
   }
 
   private addLog(message: string): void {
