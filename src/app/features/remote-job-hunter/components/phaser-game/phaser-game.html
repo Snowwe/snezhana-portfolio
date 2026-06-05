@@ -1,0 +1,14 @@
+<section class="rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-xl shadow-black/20">
+  <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+    {{ content().label }}
+  </p>
+
+  <h3 class="text-2xl font-bold text-white">{{ content().title }}</h3>
+
+  <p class="mt-3 max-w-3xl leading-7 text-slate-300">{{ content().description }}</p>
+
+  <div
+    #gameContainer
+    class="mt-6 h-[500px] w-full overflow-hidden rounded-2xl border border-cyan-400/20 bg-slate-950 shadow-[0_0_40px_rgba(34,211,238,0.12)]"
+  ></div>
+</section>
