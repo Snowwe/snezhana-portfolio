@@ -34,7 +34,6 @@ export class AnalyticsService {
       return;
     }
 
-    this.loadGoogleAnalytics();
     this.trackPageView(window.location.pathname + window.location.hash);
     this.trackRouterEvents();
   }
@@ -47,30 +46,6 @@ export class AnalyticsService {
     window.gtag('event', eventName, {
       ...(params ?? {}),
       debug_mode: true,
-    });
-  }
-
-  private loadGoogleAnalytics(): void {
-    if (this.document.getElementById('google-analytics-script')) {
-      return;
-    }
-
-    const script = this.document.createElement('script');
-
-    script.id = 'google-analytics-script';
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.trackingId}`;
-
-    this.document.head.appendChild(script);
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: unknown[]): void {
-      window.dataLayer.push(args);
-    };
-
-    window.gtag('js', new Date());
-    window.gtag('config', this.trackingId, {
-      send_page_view: false,
     });
   }
 
