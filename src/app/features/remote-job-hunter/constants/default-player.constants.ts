@@ -9,4 +9,5 @@ export const DEFAULT_PLAYER: PlayerStats = {
   typescript: 20,
   rxjs: 10,
   english: 30,
+  acceptedJobIds: [],
 };

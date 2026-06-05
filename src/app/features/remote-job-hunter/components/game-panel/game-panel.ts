@@ -1,4 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { GAME_PANEL_CONTENT } from '@core/constants/content/game-panel-content.constants';
 import { LanguageService } from '@core/services/language';
@@ -8,7 +9,7 @@ import { AnalyticsService } from '@core/services/analytics';
 
 @Component({
   selector: 'app-game-panel',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './game-panel.html',
   styleUrl: './game-panel.scss',
 })
@@ -22,6 +23,10 @@ export class GamePanel {
   readonly log = this.gameStateService.log;
 
   readonly content = computed(() => GAME_PANEL_CONTENT[this.languageService.language()]);
+
+  readonly enabledLearnButtonClasses =
+    'border-white/15 text-slate-200 hover:border-cyan-300 hover:text-cyan-200 hover:shadow-[0_0_25px_rgba(34,211,238,0.14)]';
+  readonly disabledLearnButtonClasses = 'border-red-400/40 text-red-300';
 
   learnAngular(): void {
     this.gameStateService.learnAngular();
@@ -51,5 +56,11 @@ export class GamePanel {
   resetGame(): void {
     this.gameStateService.resetGame();
     this.analyticsService.trackEvent('game_reset');
+  }
+
+  canLearn(energyCost: number, motivationCost: number): boolean {
+    const player = this.player();
+
+    return player.energy >= energyCost && player.motivation >= motivationCost;
   }
 }

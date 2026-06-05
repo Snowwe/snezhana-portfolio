@@ -2,7 +2,7 @@ export interface GamePanelContent {
   label: string;
   title: string;
   description: string;
-
+  needRest: string;
   totalSkill: string;
 
   stats: {
@@ -10,6 +10,8 @@ export interface GamePanelContent {
     money: string;
     energy: string;
     motivation: string;
+    currentJob: string;
+    openToWork: string;
   };
 
   skills: {

@@ -4,6 +4,7 @@ import { DEFAULT_PLAYER } from '@features/remote-job-hunter/constants/default-pl
 import { JOB_OFFERS } from '@features/remote-job-hunter/constants/job-offers.constants';
 import { GameLogEntry } from '@features/remote-job-hunter/models/game-log-entry.model';
 import { JobOffer } from '@features/remote-job-hunter/models/job-offer.model';
+import { PlayerStats } from '@features/remote-job-hunter/models/player.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class GameStateService {
     JOB_OFFERS.map((job) => ({
       ...job,
       available: this.canApply(job),
+      accepted: this.hasAcceptedJob(job.id),
     })),
   );
   readonly log = signal<GameLogEntry[]>([
@@ -28,44 +30,30 @@ export class GameStateService {
       message: 'Game started',
     },
   ]);
+  hasSkillForRequirement(
+    skill: keyof Pick<PlayerStats, 'angular' | 'typescript' | 'rxjs' | 'english'>,
+    value: number,
+  ): boolean {
+    return this.player()[skill] >= value;
+  }
 
   learnAngular(): void {
-    this.player.update((player) => ({
-      ...player,
-      angular: player.angular + 5,
-      energy: Math.max(player.energy - 10, 0),
-      motivation: Math.max(player.motivation - 2, 0),
-    }));
+    this.learnSkill('angular', 5, 10, 2, 'Studied Angular (+5)');
     this.addLog('Studied Angular (+5)');
   }
 
   learnTypescript(): void {
-    this.player.update((player) => ({
-      ...player,
-      typescript: player.typescript + 5,
-      energy: Math.max(player.energy - 10, 0),
-      motivation: Math.max(player.motivation - 2, 0),
-    }));
+    this.learnSkill('typescript', 5, 10, 2, 'Studied TypeScript (+5)');
     this.addLog('Studied TypeScript (+5)');
   }
 
   practiceRxjs(): void {
-    this.player.update((player) => ({
-      ...player,
-      rxjs: player.rxjs + 4,
-      energy: Math.max(player.energy - 12, 0),
-      motivation: Math.max(player.motivation - 3, 0),
-    }));
+    this.learnSkill('rxjs', 4, 12, 3, 'Practiced RxJS (+4)');
     this.addLog('Studied RxJS (+4)');
   }
 
   learnEnglish(): void {
-    this.player.update((player) => ({
-      ...player,
-      english: player.english + 3,
-      energy: Math.max(player.energy - 8, 0),
-      motivation: Math.max(player.motivation - 1, 0),
-    }));
+    this.learnSkill('english', 3, 8, 1, 'Studied English (+3)');
     this.addLog('Studied English (+3)');
   }
 
@@ -88,10 +76,70 @@ export class GameStateService {
     ]);
   }
 
-  private canApply(job: JobOffer): boolean {
+  applyForJob(job: JobOffer): void {
+    const currentJobId = this.player().currentJobId;
+
+    if (currentJobId === job.id) {
+      this.addLog(`Already working as ${job.position}`);
+      return;
+    }
+
+    if (!this.canApply(job)) {
+      this.addLog(`Application failed: ${job.position} requirements are not met`);
+      return;
+    }
+
+    const hasAcceptedBefore = this.hasAcceptedJob(job.id);
+
+    this.player.update((player) => ({
+      ...player,
+      level: hasAcceptedBefore ? player.level : player.level + 1,
+      money: hasAcceptedBefore ? player.money : player.money + job.salary,
+      motivation: Math.min(player.motivation + 10, 100),
+      currentJob: job.position,
+      currentJobId: job.id,
+      acceptedJobIds: hasAcceptedBefore
+        ? player.acceptedJobIds
+        : [...player.acceptedJobIds, job.id],
+    }));
+
+    this.addLog(`Current job changed: ${job.position} at ${job.company}`);
+  }
+
+  canApply(job: JobOffer): boolean {
     const player = this.player();
 
     return job.requirements.every((requirement) => player[requirement.skill] >= requirement.value);
+  }
+
+  hasAcceptedJob(jobId: string): boolean {
+    return this.player().acceptedJobIds.includes(jobId);
+  }
+
+  private canSpendResources(energyCost: number, motivationCost: number): boolean {
+    return this.player().energy >= energyCost && this.player().motivation >= motivationCost;
+  }
+
+  private learnSkill(
+    skill: 'angular' | 'typescript' | 'rxjs' | 'english',
+    skillValue: number,
+    energyCost: number,
+    motivationCost: number,
+    message: string,
+  ): void {
+    if (!this.canSpendResources(energyCost, motivationCost)) {
+      this.addLog('Not enough energy or motivation');
+      return;
+    }
+
+    this.player.update((player) => ({
+      ...player,
+      [skill]: player[skill] + skillValue,
+      energy: player.energy - energyCost,
+      motivation: player.motivation - motivationCost,
+    }));
+
+    this.addLog(message);
   }
 
   private addLog(message: string): void {

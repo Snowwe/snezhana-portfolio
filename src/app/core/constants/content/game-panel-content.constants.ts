@@ -5,7 +5,7 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
     label: 'Prototype',
     title: 'Remote Job Hunter',
     description: 'First playable game logic: improve skills, spend energy and recover by resting.',
-
+    needRest: 'You need to rest before studying',
     totalSkill: 'Total Skill',
 
     stats: {
@@ -13,6 +13,8 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
       money: 'Money',
       energy: 'Energy',
       motivation: 'Motivation',
+      currentJob: 'Current Job',
+      openToWork: 'Open To Work',
     },
 
     skills: {
@@ -37,7 +39,7 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
     title: 'Remote Job Hunter',
     description:
       'Первая игровая механика: развитие навыков, расход энергии и восстановление через отдых.',
-
+    needRest: 'Перед обучением нужно отдохнуть',
     totalSkill: 'Сумма навыков',
 
     stats: {
@@ -45,6 +47,8 @@ export const GAME_PANEL_CONTENT: Record<'en' | 'ru', GamePanelContent> = {
       money: 'Деньги',
       energy: 'Энергия',
       motivation: 'Мотивация',
+      currentJob: 'Текущая работа',
+      openToWork: 'Открыт к предложениям',
     },
 
     skills: {

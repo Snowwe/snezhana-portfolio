@@ -7,4 +7,7 @@ export interface PlayerStats {
   typescript: number;
   rxjs: number;
   english: number;
+  currentJob?: string;
+  currentJobId?: string;
+  acceptedJobIds: string[];
 }
