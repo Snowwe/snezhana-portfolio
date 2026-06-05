@@ -35,6 +35,7 @@ export class AnalyticsService {
     }
 
     this.loadGoogleAnalytics();
+    this.trackPageView(window.location.pathname + window.location.hash);
     this.trackRouterEvents();
   }
 
@@ -72,10 +73,18 @@ export class AnalyticsService {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => {
-        window.gtag('event', 'page_view', {
-          page_path: event.urlAfterRedirects,
-          page_title: this.document.title,
-        });
+        this.trackPageView(event.urlAfterRedirects);
       });
+  }
+
+  private trackPageView(pagePath: string): void {
+    if (!window.gtag) {
+      return;
+    }
+
+    window.gtag('event', 'page_view', {
+      page_path: pagePath,
+      page_title: this.document.title,
+    });
   }
 }
