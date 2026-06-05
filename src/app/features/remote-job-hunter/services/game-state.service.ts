@@ -1,10 +1,12 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, signal, effect } from '@angular/core';
 
 import { DEFAULT_PLAYER } from '@features/remote-job-hunter/constants/default-player.constants';
 import { JOB_OFFERS } from '@features/remote-job-hunter/constants/job-offers.constants';
 import { GameLogEntry } from '@features/remote-job-hunter/models/game-log-entry.model';
 import { JobOffer } from '@features/remote-job-hunter/models/job-offer.model';
 import { PlayerStats } from '@features/remote-job-hunter/models/player.model';
+
+const STORAGE_KEY = 'remote-job-hunter-player';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,16 @@ export class GameStateService {
       message: 'Game started',
     },
   ]);
+
+  constructor() {
+    this.loadPlayer();
+
+    effect(() => {
+      this.player();
+      this.savePlayer();
+    });
+  }
+
   hasSkillForRequirement(
     skill: keyof Pick<PlayerStats, 'angular' | 'typescript' | 'rxjs' | 'english'>,
     value: number,
@@ -39,22 +51,18 @@ export class GameStateService {
 
   learnAngular(): void {
     this.learnSkill('angular', 5, 10, 2, 'Studied Angular (+5)');
-    this.addLog('Studied Angular (+5)');
   }
 
   learnTypescript(): void {
     this.learnSkill('typescript', 5, 10, 2, 'Studied TypeScript (+5)');
-    this.addLog('Studied TypeScript (+5)');
   }
 
   practiceRxjs(): void {
     this.learnSkill('rxjs', 4, 12, 3, 'Practiced RxJS (+4)');
-    this.addLog('Studied RxJS (+4)');
   }
 
   learnEnglish(): void {
     this.learnSkill('english', 3, 8, 1, 'Studied English (+3)');
-    this.addLog('Studied English (+3)');
   }
 
   rest(): void {
@@ -67,7 +75,10 @@ export class GameStateService {
   }
 
   resetGame(): void {
+    localStorage.removeItem(STORAGE_KEY);
+
     this.player.set(structuredClone(DEFAULT_PLAYER));
+
     this.log.set([
       {
         timestamp: new Date().toLocaleTimeString(),
@@ -126,14 +137,6 @@ export class GameStateService {
     return this.player().acceptedJobIds.includes(jobId);
   }
 
-  private getInterviewScore(): number {
-    const player = this.player();
-
-    return Math.round(
-      player.angular * 0.3 + player.typescript * 0.25 + player.rxjs * 0.25 + player.english * 0.2,
-    );
-  }
-
   private canSpendResources(energyCost: number, motivationCost: number): boolean {
     return this.player().energy >= energyCost && this.player().motivation >= motivationCost;
   }
@@ -170,5 +173,23 @@ export class GameStateService {
         ...entries,
       ].slice(0, 5),
     );
+  }
+
+  private loadPlayer(): void {
+    const rawPlayer = localStorage.getItem(STORAGE_KEY);
+
+    if (!rawPlayer) {
+      return;
+    }
+
+    try {
+      this.player.set(JSON.parse(rawPlayer));
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }
+
+  private savePlayer(): void {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.player()));
   }
 }
