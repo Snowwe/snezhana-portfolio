@@ -25,22 +25,27 @@ export class GamePanel {
 
   learnAngular(): void {
     this.gameStateService.learnAngular();
+    this.analyticsService.trackEvent('game_action', { action: 'learn_angular' });
   }
 
   learnTypescript(): void {
     this.gameStateService.learnTypescript();
+    this.analyticsService.trackEvent('game_action', { action: 'learn_typescript' });
   }
 
   practiceRxjs(): void {
     this.gameStateService.practiceRxjs();
+    this.analyticsService.trackEvent('game_action', { action: 'practice_rxjs' });
   }
 
   learnEnglish(): void {
     this.gameStateService.learnEnglish();
+    this.analyticsService.trackEvent('game_action', { action: 'learn_english' });
   }
 
   rest(): void {
     this.gameStateService.rest();
+    this.analyticsService.trackEvent('game_action', { action: 'rest' });
   }
 
   resetGame(): void {

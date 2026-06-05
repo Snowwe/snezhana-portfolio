@@ -34,7 +34,7 @@ export class AnalyticsService {
       return;
     }
 
-    this.trackPageView(window.location.pathname + window.location.hash);
+    this.trackPageView(this.getCurrentPagePath());
     this.trackRouterEvents();
   }
 
@@ -52,8 +52,8 @@ export class AnalyticsService {
   private trackRouterEvents(): void {
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-      .subscribe((event) => {
-        this.trackPageView(event.urlAfterRedirects);
+      .subscribe(() => {
+        this.trackPageView(this.getCurrentPagePath());
       });
   }
 
@@ -67,5 +67,9 @@ export class AnalyticsService {
       page_title: this.document.title,
       debug_mode: true,
     });
+  }
+
+  private getCurrentPagePath(): string {
+    return `${window.location.pathname}${window.location.hash}`;
   }
 }
