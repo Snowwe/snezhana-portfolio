@@ -3,10 +3,11 @@ import { LanguageService } from '@core/services/language';
 import { GAME_LAB_CONTENT } from '@core/constants/content/game-lab-content.constants';
 import { GamePanel } from '@features/remote-job-hunter/components/game-panel/game-panel';
 import { JobBoard } from '@features/remote-job-hunter/components/job-board/job-board';
+import { CareerProfile } from '@features/remote-job-hunter/components/career-profile/career-profile';
 
 @Component({
   selector: 'app-game-lab-page',
-  imports: [GamePanel, JobBoard],
+  imports: [GamePanel, JobBoard, CareerProfile],
   templateUrl: './game-lab-page.html',
   styleUrl: './game-lab-page.scss',
 })
