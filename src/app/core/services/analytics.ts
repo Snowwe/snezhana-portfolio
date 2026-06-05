@@ -44,7 +44,10 @@ export class AnalyticsService {
       return;
     }
 
-    window.gtag('event', eventName, params ?? {});
+    window.gtag('event', eventName, {
+      ...(params ?? {}),
+      debug_mode: true,
+    });
   }
 
   private loadGoogleAnalytics(): void {
@@ -61,7 +64,9 @@ export class AnalyticsService {
     this.document.head.appendChild(script);
 
     window.dataLayer = window.dataLayer || [];
-    window.gtag = (...args: unknown[]) => window.dataLayer.push(args);
+    window.gtag = function gtag(...args: unknown[]): void {
+      window.dataLayer.push(args);
+    };
 
     window.gtag('js', new Date());
     window.gtag('config', this.trackingId, {
@@ -85,6 +90,7 @@ export class AnalyticsService {
     window.gtag('event', 'page_view', {
       page_path: pagePath,
       page_title: this.document.title,
+      debug_mode: true,
     });
   }
 }
