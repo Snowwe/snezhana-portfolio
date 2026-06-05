@@ -76,7 +76,7 @@ export class GameStateService {
     ]);
   }
 
-  applyForJob(job: JobOffer): void {
+  applyForJob(job: JobOffer, interviewPassed: boolean): void {
     const currentJobId = this.player().currentJobId;
 
     if (currentJobId === job.id) {
@@ -85,7 +85,17 @@ export class GameStateService {
     }
 
     if (!this.canApply(job)) {
-      this.addLog(`Application failed: ${job.position} requirements are not met`);
+      this.addLog(`Application rejected: ${job.position} requirements are not met`);
+      return;
+    }
+
+    if (!interviewPassed) {
+      this.player.update((player) => ({
+        ...player,
+        motivation: Math.max(player.motivation - 8, 0),
+      }));
+
+      this.addLog(`Interview failed: ${job.position}`);
       return;
     }
 
@@ -103,7 +113,7 @@ export class GameStateService {
         : [...player.acceptedJobIds, job.id],
     }));
 
-    this.addLog(`Current job changed: ${job.position} at ${job.company}`);
+    this.addLog(`Offer received: ${job.position} at ${job.company}`);
   }
 
   canApply(job: JobOffer): boolean {
@@ -114,6 +124,14 @@ export class GameStateService {
 
   hasAcceptedJob(jobId: string): boolean {
     return this.player().acceptedJobIds.includes(jobId);
+  }
+
+  private getInterviewScore(): number {
+    const player = this.player();
+
+    return Math.round(
+      player.angular * 0.3 + player.typescript * 0.25 + player.rxjs * 0.25 + player.english * 0.2,
+    );
   }
 
   private canSpendResources(energyCost: number, motivationCost: number): boolean {

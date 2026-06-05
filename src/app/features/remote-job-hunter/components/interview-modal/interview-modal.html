@@ -1,0 +1,75 @@
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 backdrop-blur-sm"
+>
+  <div
+    class="w-full max-w-xl rounded-3xl border border-cyan-400/20 bg-slate-900 p-6 shadow-[0_0_60px_rgba(34,211,238,0.16)]"
+  >
+    <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+      {{ content().title }}
+    </p>
+
+    <h3 class="text-2xl font-bold text-white">{{ job().position }}</h3>
+
+    <p class="mt-4 leading-7 text-slate-300">
+      {{ language() === 'ru' ? question().questionRu : question().questionEn }}
+    </p>
+
+    <div class="mt-6 grid gap-3">
+      @for ( answer of ( language() === 'ru' ? question().answersRu : question().answersEn ); track
+      answer; let index = $index ) {
+      <button
+        type="button"
+        class="rounded-2xl border px-4 py-3 text-left text-sm font-semibold transition"
+        [ngClass]="
+            result() === null
+              ? answerDefaultClasses
+              : index === question().correctAnswerIndex
+                ? answerCorrectClasses
+                : result() === false
+                  ? answerWrongClasses
+                  : answerDisabledClasses
+          "
+        [disabled]="result() !== null"
+        (click)="onAnswer(index)"
+      >
+        {{ answer }}
+      </button>
+      }
+    </div>
+
+    @if (result() !== null) {
+    <div
+      class="mt-6 rounded-2xl border p-4"
+      [ngClass]="result() ? resultSuccessClasses : resultFailClasses"
+    >
+      <h4 class="font-bold" [ngClass]="result() ? 'text-cyan-200' : 'text-red-300'">
+        {{ result() ? content().passed : content().failed }}
+      </h4>
+
+      <p class="mt-2 text-slate-300">
+        {{ result() ? content().passedDescription : content().failedDescription }}
+      </p>
+    </div>
+    }
+
+    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+      <button
+        type="button"
+        class="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
+        (click)="onCancel()"
+      >
+        {{ content().cancel }}
+      </button>
+
+      @if (result() !== null) {
+      <button
+        type="button"
+        class="rounded-full bg-cyan-400 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_30px_rgba(34,211,238,0.25)] transition hover:scale-105 hover:bg-cyan-300"
+        (click)="onContinue()"
+      >
+        {{ content().continue }}
+      </button>
+      }
+    </div>
+  </div>
+</div>

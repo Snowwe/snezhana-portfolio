@@ -8,5 +8,6 @@ export interface JobOffer {
   company: string;
   position: string;
   salary: number;
+  interviewLevel: number;
   requirements: JobRequirement[];
 }

@@ -12,7 +12,7 @@
   <div class="mt-6 grid gap-4 lg:grid-cols-3">
     @for (job of jobs(); track job.id) {
     <article
-      class="flex min-h-[420px] flex-col rounded-2xl border p-5 transition-all duration-300"
+      class="flex min-h-[440px] flex-col rounded-2xl border p-5 transition-all duration-300"
       [ngClass]="{
     'border-cyan-400/30 bg-cyan-400/10': job.available,
     'border-white/10 bg-slate-900/70': !job.available
@@ -37,7 +37,6 @@
       </div>
 
       <p class="mt-4 text-2xl font-bold text-white">${{ job.salary }}</p>
-
       <div class="mt-5 min-h-[10.5rem] space-y-2">
         @for (requirement of job.requirements; track requirement.skill) {
         <div
@@ -76,4 +75,11 @@
   (switchCancelled)="cancelJobSwitch()"
   (switchConfirmed)="confirmJobSwitch()"
 />
-}
+} @if (interviewJob(); as job) { @if (interviewQuestion(); as question) {
+<app-interview-modal
+  [job]="job"
+  [question]="question"
+  (cancelled)="cancelInterview()"
+  (completed)="completeInterview($event)"
+/>
+} }

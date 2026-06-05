@@ -6,6 +6,7 @@ export const JOB_OFFERS: JobOffer[] = [
     company: 'StartupHub',
     position: 'Junior Angular Developer',
     salary: 1200,
+    interviewLevel: 1,
     requirements: [
       { skill: 'angular', value: 20 },
       { skill: 'typescript', value: 20 },
@@ -18,6 +19,7 @@ export const JOB_OFFERS: JobOffer[] = [
     company: 'RemoteSoft',
     position: 'Middle Angular Developer',
     salary: 3000,
+    interviewLevel: 2,
     requirements: [
       { skill: 'angular', value: 50 },
       { skill: 'typescript', value: 50 },
@@ -30,6 +32,7 @@ export const JOB_OFFERS: JobOffer[] = [
     company: 'FinTech Labs',
     position: 'Senior Angular Developer',
     salary: 5000,
+    interviewLevel: 3,
     requirements: [
       { skill: 'angular', value: 80 },
       { skill: 'typescript', value: 80 },
