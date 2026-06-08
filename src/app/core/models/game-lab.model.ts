@@ -14,6 +14,8 @@ export interface GameLabContent {
   label: string;
   title: string;
   description: string;
+  playTab: string;
+  devDiaryTab: string;
   currentProjectTitle: string;
   currentProjectItems: string[];
   mvpTitle: string;
@@ -24,3 +26,5 @@ export interface GameLabContent {
   journalTitle: string;
   journal: GameLabJournalItem[];
 }
+
+export type GameLabTab = 'play' | 'dev-diary';

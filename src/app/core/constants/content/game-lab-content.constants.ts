@@ -6,6 +6,8 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
     title: 'Remote Job Hunter: career simulator in progress',
     description:
       'A learning project where I combine Angular, Phaser, NestJS and later Three.js to build a small browser game about growing as a remote frontend developer.',
+    playTab: 'Play',
+    devDiaryTab: 'Dev Diary',
     currentProjectTitle: 'Current Project',
     currentProjectItems: [
       'Building a career simulator where the player improves skills, applies to remote jobs and grows from Junior to Senior / Lead.',
@@ -89,15 +91,27 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
       },
       {
         day: 'Day 2',
-        title: 'Game direction',
+        title: 'Game idea and first MVP',
         description:
-          'Selected Remote Job Hunter as the main game idea because it connects frontend development, career growth and real experience with job search.',
+          'Selected Remote Job Hunter as the main idea: a career simulator where the player improves skills, applies to jobs and passes interviews.',
       },
       {
         day: 'Day 3',
-        title: 'MVP planning',
+        title: 'Game state and job board',
         description:
-          'Next step: define models for player stats, skills, actions and job offers before adding Phaser.',
+          'Added player state with Angular Signals: skills, energy, motivation, money, level, job offers and application rules.',
+      },
+      {
+        day: 'Day 4',
+        title: 'Interview and career progress',
+        description:
+          'Implemented the interview mechanic: level-based questions, interview result, job offer, job switching and career profile.',
+      },
+      {
+        day: 'Day 5',
+        title: 'First Phaser layer',
+        description:
+          'Connected Phaser as the visual game layer: added the office, canvas scene and the first player represented by a simple object.',
       },
     ],
   },
@@ -107,6 +121,8 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
     title: 'Remote Job Hunter: карьерный симулятор в разработке',
     description:
       'Учебный проект, в котором я объединяю Angular, Phaser, NestJS и позже Three.js, чтобы создать небольшую браузерную игру о развитии frontend-разработчика и поиске удалённой работы.',
+    playTab: 'Играть',
+    devDiaryTab: 'Дневник разработки',
     currentProjectTitle: 'Текущий проект',
     currentProjectItems: [
       'Создаю карьерный симулятор, где игрок прокачивает навыки, откликается на удалённые вакансии и растёт от Junior до Senior / Lead.',
@@ -189,15 +205,27 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
       },
       {
         day: 'День 2',
-        title: 'Выбор идеи игры',
+        title: 'Идея игры и первый MVP',
         description:
-          'Выбрала Remote Job Hunter как основную идею, потому что она объединяет frontend-разработку, карьерный рост и реальный опыт поиска работы.',
+          'Выбрала Remote Job Hunter как основную идею: карьерный симулятор, где игрок прокачивает навыки, откликается на вакансии и проходит интервью.',
       },
       {
         day: 'День 3',
-        title: 'Планирование MVP',
+        title: 'Игровое состояние и вакансии',
         description:
-          'Следующий шаг: описать модели игрока, навыков, действий и вакансий до подключения Phaser.',
+          'Добавила состояние игрока на Angular Signals: навыки, энергию, мотивацию, деньги, уровень, вакансии и правила отклика.',
+      },
+      {
+        day: 'День 4',
+        title: 'Интервью и карьерный прогресс',
+        description:
+          'Реализовала механику собеседования: вопросы по уровням, результат интервью, получение оффера, смену текущей работы и карьерный профиль.',
+      },
+      {
+        day: 'День 5',
+        title: 'Первый Phaser-слой',
+        description:
+          'Подключила Phaser как визуальный слой игры: добавила офис, canvas-сцену и первого игрока в виде простого объекта.',
       },
     ],
   },

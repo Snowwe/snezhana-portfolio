@@ -3,21 +3,37 @@
     <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
       {{ content().label }}
     </p>
-
     <h2 class="text-3xl font-bold text-white">{{ content().title }}</h2>
 
     <p class="mt-3 max-w-3xl leading-7 text-slate-300">{{ content().description }}</p>
   </div>
+  <div class="mt-6 flex flex-wrap gap-3">
+    <button
+      type="button"
+      class="rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300"
+      [ngClass]="activeTab() === 'play' ? activeTabClasses : inactiveTabClasses"
+      (click)="setTab('play')"
+    >
+      {{ content().playTab }}
+    </button>
+
+    <button
+      type="button"
+      class="rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300"
+      [ngClass]="activeTab() === 'dev-diary' ? activeTabClasses : inactiveTabClasses"
+      (click)="setTab('dev-diary')"
+    >
+      {{ content().devDiaryTab }}
+    </button>
+  </div>
+  @if (activeTab() === 'play') {
   <section class="space-y-6 rounded-3xl border border-cyan-400/10 bg-cyan-400/[0.02] p-6">
     <app-game-panel />
-
     <app-career-profile />
-
     <app-phaser-game />
-
     <app-job-board />
   </section>
-
+  } @else {
   <section
     class="grid gap-6 rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-xl shadow-black/20 lg:grid-cols-[1fr_0.8fr]"
   >
@@ -91,4 +107,5 @@
       }
     </div>
   </section>
+  }
 </section>
