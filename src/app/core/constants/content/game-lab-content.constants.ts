@@ -22,19 +22,25 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         title: 'Game concept and MVP',
         description:
           'Define the core loop: learn skills, spend energy, apply to jobs, pass interviews and receive offers.',
-        status: 'current',
+        status: 'completed',
       },
       {
         title: 'Angular game state',
         description:
           'Create player stats, actions, job offers, event log and game rules using TypeScript and Signals.',
-        status: 'planned',
+        status: 'completed',
       },
       {
         title: 'Phaser basics',
         description:
-          'Add Phaser scene, render the player, simple world objects and connect visual layer with Angular state.',
-        status: 'planned',
+          'Add Phaser scene, player movement, interactive office zones, collision system and contextual interaction hints.',
+        status: 'completed',
+      },
+      {
+        title: 'Interactive office',
+        description:
+          'Create learning desks, office interactions, skill activities and connect workspace actions with player progression.',
+        status: 'current',
       },
       {
         title: 'Game loop',
@@ -74,7 +80,7 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
       {
         title: 'Deployment',
         description:
-          'Publish playable demo, document architecture and keep progress visible in the portfolio.',
+          'Publish a playable demo, document the architecture and keep progress visible in the portfolio.',
         status: 'planned',
       },
     ],
@@ -111,7 +117,13 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         day: 'Day 5',
         title: 'First Phaser layer',
         description:
-          'Connected Phaser as the visual game layer: added the office, canvas scene and the first player represented by a simple object.',
+          'Connected Phaser as the visual game layer: added the office scene, player movement, interactive office zones and contextual interaction hints.',
+      },
+      {
+        day: 'Day 6',
+        title: 'Interactive office prototype',
+        description:
+          'Added learning desks, movement boundaries, furniture collisions, interaction hints and centralized Phaser scene configuration.',
       },
     ],
   },
@@ -140,42 +152,48 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         title: 'Концепция игры и MVP',
         description:
           'Определить основной игровой цикл: изучать навыки, тратить энергию, откликаться на вакансии, проходить интервью и получать офферы.',
-        status: 'current',
+        status: 'completed',
       },
       {
-        title: 'Игровое состояние на Angular',
+        title: 'Состояние игры на Angular',
         description:
-          'Создать характеристики игрока, действия, вакансии, журнал событий и правила игры с помощью TypeScript и Signals.',
-        status: 'planned',
+          'Создать характеристики игрока, действия, вакансии, журнал событий и игровые правила с использованием TypeScript и Signals.',
+        status: 'completed',
       },
       {
         title: 'Основы Phaser',
         description:
-          'Добавить сцену Phaser, отрисовать игрока, простые объекты мира и связать визуальный слой с состоянием Angular.',
-        status: 'planned',
+          'Добавить сцену Phaser, перемещение игрока, интерактивные офисные зоны, систему коллизий и контекстные подсказки.',
+        status: 'completed',
+      },
+      {
+        title: 'Интерактивный офис',
+        description:
+          'Создать обучающие столы, офисные взаимодействия, активности для развития навыков и связать их с прогрессом игрока.',
+        status: 'current',
       },
       {
         title: 'Игровой цикл',
         description:
-          'Разобрать обновление игры, логику по кадрам, таймеры и отличие браузерной игры от обычного SPA-приложения.',
+          'Разобраться с обновлением кадров, игровой логикой, таймерами и отличиями браузерных игр от обычных SPA-приложений.',
         status: 'planned',
       },
       {
         title: 'Механика вакансий',
         description:
-          'Генерировать вакансии с требованиями, зарплатной вилкой и сложностью интервью.',
+          'Генерировать вакансии с требованиями, диапазонами зарплат и сложностью интервью.',
         status: 'planned',
       },
       {
         title: 'Система интервью',
         description:
-          'Создать события технических интервью на основе навыков: Angular, TypeScript, RxJS, English и system design.',
+          'Создать технические интервью на основе навыков Angular, TypeScript, RxJS, English и System Design.',
         status: 'planned',
       },
       {
         title: 'Backend на NestJS',
         description:
-          'Добавить API для сохранений, таблицы лидеров, профиля игрока и долгосрочного прогресса.',
+          'Добавить API для сохранений, таблицы лидеров, профилей игроков и долгосрочного прогресса.',
         status: 'planned',
       },
       {
@@ -184,14 +202,15 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         status: 'planned',
       },
       {
-        title: 'Three.js playground',
-        description: 'Отдельно поэкспериментировать с небольшой 3D-сценой виртуального офиса.',
+        title: 'Песочница Three.js',
+        description:
+          'Поэкспериментировать с небольшой 3D-сценой виртуального офиса как отдельным учебным модулем.',
         status: 'planned',
       },
       {
-        title: 'Деплой',
+        title: 'Публикация проекта',
         description:
-          'Опубликовать играбельное демо, описать архитектуру и показывать прогресс в портфолио.',
+          'Опубликовать игровое демо, описать архитектуру и показывать прогресс в портфолио.',
         status: 'planned',
       },
     ],
@@ -201,31 +220,37 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         day: 'День 1',
         title: 'Основа портфолио',
         description:
-          'Создала двуязычное Angular-портфолио, выложила его на GitHub Pages и подготовила раздел Game Lab.',
+          'Создала двуязычное Angular-портфолио, опубликовала его на GitHub Pages и подготовила раздел Game Lab.',
       },
       {
         day: 'День 2',
         title: 'Идея игры и первый MVP',
         description:
-          'Выбрала Remote Job Hunter как основную идею: карьерный симулятор, где игрок прокачивает навыки, откликается на вакансии и проходит интервью.',
+          'Выбрала Remote Job Hunter как основную идею: карьерный симулятор, где игрок развивает навыки, откликается на вакансии и проходит интервью.',
       },
       {
         day: 'День 3',
-        title: 'Игровое состояние и вакансии',
+        title: 'Состояние игры и вакансии',
         description:
-          'Добавила состояние игрока на Angular Signals: навыки, энергию, мотивацию, деньги, уровень, вакансии и правила отклика.',
+          'Добавила состояние игрока на Angular Signals: навыки, энергия, мотивация, деньги, уровень, офферы и правила отклика.',
       },
       {
         day: 'День 4',
-        title: 'Интервью и карьерный прогресс',
+        title: 'Интервью и карьерный рост',
         description:
-          'Реализовала механику собеседования: вопросы по уровням, результат интервью, получение оффера, смену текущей работы и карьерный профиль.',
+          'Реализовала механику интервью: вопросы по уровню, результат интервью, получение оффера, смену работы и карьерный профиль.',
       },
       {
         day: 'День 5',
-        title: 'Первый Phaser-слой',
+        title: 'Первый слой Phaser',
         description:
-          'Подключила Phaser как визуальный слой игры: добавила офис, canvas-сцену и первого игрока в виде простого объекта.',
+          'Подключила Phaser как визуальный игровой слой: добавила офисную сцену, перемещение игрока, интерактивные офисные зоны и контекстные подсказки.',
+      },
+      {
+        day: 'День 6',
+        title: 'Прототип интерактивного офиса',
+        description:
+          'Добавила обучающие столы, ограничения перемещения, коллизии с мебелью, подсказки взаимодействия и централизованную конфигурацию сцены Phaser.',
       },
     ],
   },

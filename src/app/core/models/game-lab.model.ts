@@ -1,7 +1,9 @@
+export type RoadmapStatus = 'completed' | 'current' | 'planned';
+
 export interface GameLabRoadmapItem {
   title: string;
   description: string;
-  status: 'done' | 'current' | 'planned';
+  status: RoadmapStatus;
 }
 
 export interface GameLabJournalItem {
