@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 import { REMOTE_JOB_HUNTER_SCENE } from '@features/remote-job-hunter/phaser/constants/remote-job-hunter-scene.constants';
 import { OfficeZone } from '@features/remote-job-hunter/phaser/models/office-zone.model';
+import { GameStateService } from '@features/remote-job-hunter/services/game-state.service';
 
 export class RemoteJobHunterScene extends Phaser.Scene {
   private readonly config = REMOTE_JOB_HUNTER_SCENE;
@@ -17,6 +18,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
   private interactionPanelZoneTitle!: Phaser.GameObjects.Text;
   private interactionPanelAction!: Phaser.GameObjects.Text;
   private interactKey!: Phaser.Input.Keyboard.Key;
+  private interactKeyRu!: Phaser.Input.Keyboard.Key;
   private wasd!: {
     W: Phaser.Input.Keyboard.Key;
     A: Phaser.Input.Keyboard.Key;
@@ -29,7 +31,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     object: Phaser.GameObjects.Rectangle;
   }[] = [];
 
-  constructor() {
+  constructor(private readonly gameStateService: GameStateService) {
     super('remote-job-hunter');
   }
 
@@ -192,6 +194,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       D: Phaser.Input.Keyboard.Key;
     };
     this.interactKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    this.interactKeyRu = this.input.keyboard!.addKey('У');
   }
 
   private movePlayer(): void {
@@ -340,7 +343,11 @@ export class RemoteJobHunterScene extends Phaser.Scene {
   }
 
   private handleInteraction(): void {
-    if (!Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+    const isInteractionKeyPressed =
+      Phaser.Input.Keyboard.JustDown(this.interactKey) ||
+      Phaser.Input.Keyboard.JustDown(this.interactKeyRu);
+
+    if (!isInteractionKeyPressed) {
       return;
     }
 
@@ -352,19 +359,19 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
     switch (activeZone.config.actionType) {
       case 'study-angular':
-        console.log('Study Angular');
+        this.gameStateService.learnAngular();
         break;
       case 'practice-typescript':
-        console.log('Practice TypeScript');
+        this.gameStateService.learnTypescript();
         break;
       case 'practice-rxjs':
-        console.log('Practice RxJS');
+        this.gameStateService.practiceRxjs();
         break;
       case 'practice-english':
-        console.log('Practice English');
+        this.gameStateService.learnEnglish();
         break;
       case 'coffee-break':
-        console.log('Restore Energy');
+        this.gameStateService.rest();
         break;
     }
   }
