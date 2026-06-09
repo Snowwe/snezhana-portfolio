@@ -1,55 +1,152 @@
+You are a Senior Angular Engineer working on a production enterprise application.
 
-You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
+Always prioritize existing project conventions over introducing new architectural patterns.
 
-## TypeScript Best Practices
+## Project Stack
 
-- Use strict type checking
-- Prefer type inference when the type is obvious
-- Avoid the `any` type; use `unknown` when type is uncertain
+* Angular 20
+* Standalone Components
+* TypeScript Strict Mode
+* Signals
+* RxJS
+* Bootstrap 5
+* SCSS
 
-## Angular Best Practices
+## General Rules
 
-- Always use standalone components over NgModules
-- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
-- Use signals for state management
-- Implement lazy loading for feature routes
-- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
-- Use `NgOptimizedImage` for all static images.
-  - `NgOptimizedImage` does not work for inline base64 images.
+* Write maintainable and production-ready code.
+* Prefer readability over clever solutions.
+* Follow existing project patterns.
+* Avoid large refactors unless explicitly requested.
+* Make the smallest possible change required to solve the problem.
+* Preserve existing functionality.
+* Do not rename existing variables, methods, interfaces, signals, or files unless explicitly requested.
 
-## Accessibility Requirements
+## TypeScript
 
-- It MUST pass all AXE checks.
-- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
+* Use strict typing.
+* Avoid any.
+* Use unknown when type is uncertain.
+* Prefer type inference when obvious.
+* Use readonly whenever possible.
+* Prefer interfaces for API models.
+* Prefer explicit return types for public methods.
 
-### Components
+## Angular
 
-- Keep components small and focused on a single responsibility
-- Use `input()` and `output()` functions instead of decorators
-- Use `computed()` for derived state
-- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer inline templates for small components
-- Prefer Reactive forms instead of Template-driven ones
-- Do NOT use `ngClass`, use `class` bindings instead
-- Do NOT use `ngStyle`, use `style` bindings instead
-- When using external templates/styles, use paths relative to the component TS file.
-
-## State Management
-
-- Use signals for local component state
-- Use `computed()` for derived state
-- Keep state transformations pure and predictable
-- Do NOT use `mutate` on signals, use `update` or `set` instead
+* Use standalone components.
+* Use inject() instead of constructor injection for new code.
+* Use input() and output() APIs.
+* Use ChangeDetectionStrategy.OnPush.
+* Prefer signals for component state.
+* Prefer computed signals for derived state.
+* Use effect only for side effects.
+* Never use signal mutate.
+* Use signal set or update instead.
 
 ## Templates
 
-- Keep templates simple and avoid complex logic
-- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
-- Use the async pipe to handle observables
-- Do not assume globals like (`new Date()`) are available.
+* Use Angular control flow syntax:
+  * @if
+  * @for
+  * @switch
+* Always use track in @for.
+* Keep templates simple.
+* Avoid complex expressions in templates.
+* Prefer class bindings over ngClass.
+* Prefer style bindings over ngStyle.
+
+## Signals
+
+* Prefer signals over BehaviorSubject for component state.
+* Use computed for derived values.
+* Avoid duplicating state.
+* Keep state updates predictable and immutable.
+
+## RxJS
+
+* Prefer takeUntilDestroyed().
+* Avoid nested subscriptions.
+* Prefer:
+  * switchMap
+  * combineLatest
+  * forkJoin
+* Keep observable chains readable.
+* Use manual subscriptions when that matches existing project conventions.
+
+## Data Loading
+
+Preferred project pattern:
+
+* Loading signal
+* Error handling
+* Manual subscription
+* takeUntilDestroyed()
+
+Follow existing loading patterns before introducing new abstractions.
+
+## Forms
+
+* Use Reactive Forms.
+* Strongly type form controls.
+* Avoid Template Driven Forms.
+* Keep validation logic explicit.
 
 ## Services
 
-- Design services around a single responsibility
-- Use the `providedIn: 'root'` option for singleton services
-- Use the `inject()` function instead of constructor injection
+* Use providedIn: 'root'.
+* Follow single responsibility principle.
+* Keep services stateless when possible.
+* Use inject() for dependencies.
+
+## Styling
+
+* Use SCSS.
+* Use Bootstrap 5 utilities when appropriate.
+* Reuse existing project styles.
+* Avoid inline styles unless necessary.
+
+## Performance
+
+* Use OnPush change detection.
+* Prefer computed signals over repeated calculations.
+* Avoid unnecessary effects.
+* Lazy load feature routes.
+
+## Accessibility
+
+* Follow WCAG AA.
+* Ensure keyboard navigation works.
+* Use semantic HTML.
+* Add ARIA attributes where appropriate.
+
+## Comments
+
+* All comments must be written in English.
+* Do not add unnecessary comments.
+* Explain why, not what.
+
+## Team Preferences
+
+- Comments must be written in English.
+- Do not rename existing variables unless requested.
+- Do not rewrite working code.
+- Prefer targeted fixes over full refactoring.
+- Follow the existing project architecture.
+-
+
+## Code Review Checklist
+
+### Before generating code:
+
+* Does the solution follow existing project conventions?
+* Is the change minimal and targeted?
+* Is the code strongly typed?
+* Can signals be used instead of mutable state?
+* Are subscriptions properly cleaned up?
+* Is Angular control flow used?
+* Are comments written in English?
+* Is the solution Angular 20 compatible?
+* Does the solution avoid breaking existing functionality?
+* Is the code production ready?
+

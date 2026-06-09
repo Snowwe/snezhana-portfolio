@@ -8,9 +8,15 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
   private player!: Phaser.GameObjects.Rectangle;
   private playerLabel!: Phaser.GameObjects.Text;
-  private interactionHint!: Phaser.GameObjects.Text;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-
+  private interactionKeyBox!: Phaser.GameObjects.Rectangle;
+  private interactionKeyText!: Phaser.GameObjects.Text;
+  private interactionPanel!: Phaser.GameObjects.Container;
+  private interactionPanelBackground!: Phaser.GameObjects.Rectangle;
+  private interactionPanelTitle!: Phaser.GameObjects.Text;
+  private interactionPanelZoneTitle!: Phaser.GameObjects.Text;
+  private interactionPanelAction!: Phaser.GameObjects.Text;
+  private interactKey!: Phaser.Input.Keyboard.Key;
   private wasd!: {
     W: Phaser.Input.Keyboard.Key;
     A: Phaser.Input.Keyboard.Key;
@@ -31,7 +37,9 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.createTitle();
     this.createZones();
     this.createPlayer();
-    this.createInteractionHint();
+    // this.createInteractionHint();
+    this.createInteractionKeyHint();
+    this.createInteractionPanel();
     this.createKeyboardControls();
   }
 
@@ -40,6 +48,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.clampPlayerPosition();
     this.updatePlayerLabelPosition();
     this.updateInteractionHint();
+    this.handleInteraction();
   }
 
   private createTitle(): void {
@@ -95,15 +104,82 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.updatePlayerLabelPosition();
   }
 
-  private createInteractionHint(): void {
-    this.interactionHint = this.add
-      .text(0, 0, '', {
-        color: this.config.colors.title,
+  private createInteractionKeyHint(): void {
+    this.interactionKeyBox = this.add
+      .rectangle(
+        0,
+        0,
+        this.config.interaction.keyBoxSize,
+        this.config.interaction.keyBoxSize,
+        this.config.colors.interactionKeyFill,
+        0.95,
+      )
+      .setStrokeStyle(1, this.config.colors.interactionKeyBorder, 0.9)
+      .setVisible(false);
+
+    this.interactionKeyText = this.add
+      .text(0, 0, this.config.interaction.keyText, {
+        color: this.config.colors.interactionKeyText,
         fontSize: this.config.interaction.hintFontSize,
         fontStyle: 'bold',
       })
-      .setOrigin(0, 0)
+      .setOrigin(0.5)
       .setVisible(false);
+  }
+
+  private createInteractionPanel(): void {
+    const panel = this.config.interaction.panel;
+
+    this.interactionPanelBackground = this.add.rectangle(
+      panel.x,
+      panel.y,
+      panel.width,
+      panel.height,
+      this.config.colors.interactionPanelBackground,
+      0.92,
+    );
+
+    this.interactionPanelBackground.setStrokeStyle(
+      1,
+      this.config.colors.interactionPanelBorder,
+      0.45,
+    );
+
+    const leftX = panel.x - panel.width / 2 + 18;
+    const middleX = panel.x - 30;
+    const rightX = panel.x + panel.width / 2 - 18;
+    const textY = panel.y - 7;
+
+    this.interactionPanelTitle = this.add.text(leftX, textY, this.config.interaction.panelTitle, {
+      color: this.config.colors.title,
+      fontSize: '12px',
+      fontStyle: 'bold',
+    });
+
+    this.interactionPanelZoneTitle = this.add
+      .text(middleX, textY, '', {
+        color: this.config.colors.text,
+        fontSize: '12px',
+        fontStyle: 'bold',
+      })
+      .setOrigin(0.5, 0);
+
+    this.interactionPanelAction = this.add
+      .text(rightX, textY, '', {
+        color: this.config.colors.title,
+        fontSize: '12px',
+        fontStyle: 'bold',
+      })
+      .setOrigin(1, 0);
+
+    this.interactionPanel = this.add.container(0, 0, [
+      this.interactionPanelBackground,
+      this.interactionPanelTitle,
+      this.interactionPanelZoneTitle,
+      this.interactionPanelAction,
+    ]);
+
+    this.interactionPanel.setVisible(true);
   }
 
   private createKeyboardControls(): void {
@@ -115,6 +191,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       S: Phaser.Input.Keyboard.Key;
       D: Phaser.Input.Keyboard.Key;
     };
+    this.interactKey = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.E);
   }
 
   private movePlayer(): void {
@@ -123,8 +200,13 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     const nextX = this.player.x + dx * this.config.player.speed;
     const nextY = this.player.y + dy * this.config.player.speed;
 
-    this.player.x = nextX;
-    this.player.y = nextY;
+    if (!this.isPlayerPositionBlocked(nextX, this.player.y)) {
+      this.player.x = nextX;
+    }
+
+    if (!this.isPlayerPositionBlocked(this.player.x, nextY)) {
+      this.player.y = nextY;
+    }
   }
 
   private getMovementDirection(): { dx: number; dy: number } {
@@ -154,30 +236,22 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     const activeZone = this.findActiveZone();
 
     if (!activeZone) {
-      this.interactionHint.setVisible(false);
+      this.interactionKeyBox.setVisible(false);
+      this.interactionKeyText.setVisible(false);
+
+      this.interactionPanelZoneTitle.setText('No active zone');
+      this.interactionPanelAction.setText('Move closer to a desk');
       return;
     }
 
-    this.interactionHint.setText(
-      `${this.config.interaction.hintText}: ${activeZone.config.actionLabel}`,
-    );
+    const keyX = this.player.x;
+    const keyY = this.player.y;
 
-    const hintX = Phaser.Math.Clamp(
-      this.player.x -
-        this.config.player.size / 2 -
-        this.config.zones.interactionHintGap -
-        this.interactionHint.width,
-      this.config.layout.playerArea.left,
-      this.config.layout.playerArea.right - this.interactionHint.width,
-    );
+    this.interactionKeyBox.setPosition(keyX, keyY).setVisible(true);
+    this.interactionKeyText.setPosition(keyX, keyY).setVisible(true);
 
-    const hintY = Phaser.Math.Clamp(
-      this.player.y - this.interactionHint.height / 2,
-      this.config.layout.headerHeight + this.config.layout.padding,
-      this.config.size.height - this.config.layout.padding - this.interactionHint.height,
-    );
-
-    this.interactionHint.setPosition(hintX, hintY).setVisible(true);
+    this.interactionPanelZoneTitle.setText(activeZone.config.label);
+    this.interactionPanelAction.setText(activeZone.config.actionLabel);
   }
 
   private findActiveZone():
@@ -186,23 +260,27 @@ export class RemoteJobHunterScene extends Phaser.Scene {
         object: Phaser.GameObjects.Rectangle;
       }
     | undefined {
+    const playerBounds = this.getPlayerBounds(this.player.x, this.player.y);
+
     return this.zoneObjects.find((zone) => {
-      const distance = Phaser.Math.Distance.Between(
-        this.player.x,
-        this.player.y,
-        zone.object.x,
-        zone.object.y,
+      const zoneBounds = zone.object.getBounds();
+
+      const interactionBounds = new Phaser.Geom.Rectangle(
+        zoneBounds.x - this.config.zones.interactionPadding,
+        zoneBounds.y - this.config.zones.interactionPadding,
+        zoneBounds.width + this.config.zones.interactionPadding * 2,
+        zoneBounds.height + this.config.zones.interactionPadding * 2,
       );
 
-      return distance <= this.config.interaction.distance;
+      return Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, interactionBounds);
     });
   }
 
   private clampPlayerPosition(): void {
     const halfPlayer = this.config.player.size / 2;
 
-    const minX = this.config.layout.playerArea.left + halfPlayer;
-    const maxX = this.config.layout.playerArea.right - halfPlayer;
+    const minX = this.config.layout.padding + halfPlayer;
+    const maxX = this.config.size.width - this.config.layout.padding - halfPlayer;
 
     const minY =
       this.config.layout.headerHeight +
@@ -220,8 +298,8 @@ export class RemoteJobHunterScene extends Phaser.Scene {
   private updatePlayerLabelPosition(): void {
     const labelX = Phaser.Math.Clamp(
       this.player.x - this.playerLabel.width / 2,
-      this.config.layout.playerArea.left,
-      this.config.layout.playerArea.right - this.playerLabel.width,
+      this.config.layout.padding,
+      this.config.size.width - this.config.layout.padding - this.playerLabel.width,
     );
 
     const labelY =
@@ -231,5 +309,63 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       this.playerLabel.height;
 
     this.playerLabel.setPosition(labelX, labelY);
+  }
+
+  private isPlayerPositionBlocked(x: number, y: number): boolean {
+    const playerBounds = this.getPlayerBounds(x, y);
+
+    return this.zoneObjects.some((zone) => {
+      const zoneBounds = zone.object.getBounds();
+
+      const expandedZoneBounds = new Phaser.Geom.Rectangle(
+        zoneBounds.x - this.config.zones.collisionPadding,
+        zoneBounds.y - this.config.zones.collisionPadding,
+        zoneBounds.width + this.config.zones.collisionPadding * 2,
+        zoneBounds.height + this.config.zones.collisionPadding * 2,
+      );
+
+      return Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, expandedZoneBounds);
+    });
+  }
+
+  private getPlayerBounds(x: number, y: number): Phaser.Geom.Rectangle {
+    const halfPlayer = this.config.player.size / 2;
+
+    return new Phaser.Geom.Rectangle(
+      x - halfPlayer,
+      y - halfPlayer,
+      this.config.player.size,
+      this.config.player.size,
+    );
+  }
+
+  private handleInteraction(): void {
+    if (!Phaser.Input.Keyboard.JustDown(this.interactKey)) {
+      return;
+    }
+
+    const activeZone = this.findActiveZone();
+
+    if (!activeZone) {
+      return;
+    }
+
+    switch (activeZone.config.actionType) {
+      case 'study-angular':
+        console.log('Study Angular');
+        break;
+      case 'practice-typescript':
+        console.log('Practice TypeScript');
+        break;
+      case 'practice-rxjs':
+        console.log('Practice RxJS');
+        break;
+      case 'practice-english':
+        console.log('Practice English');
+        break;
+      case 'coffee-break':
+        console.log('Restore Energy');
+        break;
+    }
   }
 }

@@ -1,4 +1,9 @@
-export type OfficeActionType = 'study-angular' | 'practice-rxjs' | 'coffee-break';
+export type OfficeActionType =
+  | 'study-angular'
+  | 'practice-typescript'
+  | 'practice-rxjs'
+  | 'practice-english'
+  | 'coffee-break';
 
 export interface OfficeZone {
   id: string;
@@ -18,15 +23,16 @@ export interface RemoteJobHunterSceneConfig {
   layout: {
     padding: number;
     headerHeight: number;
-    playerArea: {
-      left: number;
-      right: number;
-    };
   };
   colors: {
     title: string;
     text: string;
     player: number;
+    interactionKeyText: string;
+    interactionKeyBorder: number;
+    interactionKeyFill: number;
+    interactionPanelBackground: number;
+    interactionPanelBorder: number;
   };
   title: {
     text: string;
@@ -37,6 +43,7 @@ export interface RemoteJobHunterSceneConfig {
     size: number;
     speed: number;
     labelGap: number;
+    labelOffsetX: number;
     startPosition: {
       x: number;
       y: number;
@@ -49,13 +56,20 @@ export interface RemoteJobHunterSceneConfig {
     opacity: number;
     labelFontSize: string;
     collisionPadding: number;
+    interactionPadding: number;
     interactionHintGap: number;
-    furnitureWallPadding: number;
     items: OfficeZone[];
   };
   interaction: {
-    distance: number;
-    hintText: string;
+    keyText: string;
+    panelTitle: string;
     hintFontSize: string;
+    keyBoxSize: number;
+    panel: {
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+    };
   };
 }
