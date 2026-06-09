@@ -1,22 +1,24 @@
 import Phaser from 'phaser';
 
 import { REMOTE_JOB_HUNTER_SCENE } from '@features/remote-job-hunter/phaser/constants/remote-job-hunter-scene.constants';
-import { OfficeZone } from '@features/remote-job-hunter/phaser/models/office-zone.model';
+import {
+  OfficeActionType,
+  OfficeZone,
+  OfficeZoneObject,
+} from '@features/remote-job-hunter/phaser/models/office-zone.model';
+
 import { GameStateService } from '@features/remote-job-hunter/services/game-state.service';
 
 export class RemoteJobHunterScene extends Phaser.Scene {
+  // Static scene configuration: layout, colors, player settings and office zones.
   private readonly config = REMOTE_JOB_HUNTER_SCENE;
 
+  // Player objects rendered inside the Phaser scene.
   private player!: Phaser.GameObjects.Rectangle;
   private playerLabel!: Phaser.GameObjects.Text;
+
+  // Keyboard controls for movement and interaction.
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  private interactionKeyBox!: Phaser.GameObjects.Rectangle;
-  private interactionKeyText!: Phaser.GameObjects.Text;
-  private interactionPanel!: Phaser.GameObjects.Container;
-  private interactionPanelBackground!: Phaser.GameObjects.Rectangle;
-  private interactionPanelTitle!: Phaser.GameObjects.Text;
-  private interactionPanelZoneTitle!: Phaser.GameObjects.Text;
-  private interactionPanelAction!: Phaser.GameObjects.Text;
   private interactKey!: Phaser.Input.Keyboard.Key;
   private interactKeyRu!: Phaser.Input.Keyboard.Key;
   private wasd!: {
@@ -26,30 +28,36 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     D: Phaser.Input.Keyboard.Key;
   };
 
-  private zoneObjects: {
-    config: OfficeZone;
-    object: Phaser.GameObjects.Rectangle;
-  }[] = [];
+  // Interaction UI: key indicator displayed on the player and top info panel.
+  private interactionKeyBox!: Phaser.GameObjects.Rectangle;
+  private interactionKeyText!: Phaser.GameObjects.Text;
+  private interactionPanelZoneTitle!: Phaser.GameObjects.Text;
+  private interactionPanelAction!: Phaser.GameObjects.Text;
+  private activeZoneId: string | null = null;
+
+  // Office zones with their visual rectangle and action config.
+  private zoneObjects: OfficeZoneObject[] = [];
 
   constructor(private readonly gameStateService: GameStateService) {
     super('remote-job-hunter');
   }
 
+  // Phaser lifecycle: creates all static and interactive scene objects.
   create(): void {
     this.createTitle();
     this.createZones();
     this.createPlayer();
-    // this.createInteractionHint();
     this.createInteractionKeyHint();
     this.createInteractionPanel();
     this.createKeyboardControls();
   }
 
+  // Phaser lifecycle: runs on every frame and updates movement, labels and interactions.
   override update(): void {
     this.movePlayer();
     this.clampPlayerPosition();
     this.updatePlayerLabelPosition();
-    this.updateInteractionHint();
+    this.updateInteractionUi();
     this.handleInteraction();
   }
 
@@ -60,6 +68,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     });
   }
 
+  // Creates all office zones from config.
   private createZones(): void {
     this.zoneObjects = this.config.zones.items.map((zone) => ({
       config: zone,
@@ -67,6 +76,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     }));
   }
 
+  // Creates one interactive office zone and its centered label.
   private createZone(zone: OfficeZone): Phaser.GameObjects.Rectangle {
     const zoneObject = this.add.rectangle(
       zone.x,
@@ -129,10 +139,10 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       .setVisible(false);
   }
 
+  // Creates the interaction panel at the top of the screen.
   private createInteractionPanel(): void {
     const panel = this.config.interaction.panel;
-
-    this.interactionPanelBackground = this.add.rectangle(
+    const interactionPanelBackground = this.add.rectangle(
       panel.x,
       panel.y,
       panel.width,
@@ -141,18 +151,14 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       0.92,
     );
 
-    this.interactionPanelBackground.setStrokeStyle(
-      1,
-      this.config.colors.interactionPanelBorder,
-      0.45,
-    );
+    interactionPanelBackground.setStrokeStyle(1, this.config.colors.interactionPanelBorder, 0.45);
 
     const leftX = panel.x - panel.width / 2 + 18;
     const middleX = panel.x - 30;
     const rightX = panel.x + panel.width / 2 - 18;
     const textY = panel.y - 7;
 
-    this.interactionPanelTitle = this.add.text(leftX, textY, this.config.interaction.panelTitle, {
+    const interactionPanelTitle = this.add.text(leftX, textY, this.config.interaction.panelTitle, {
       color: this.config.colors.title,
       fontSize: '12px',
       fontStyle: 'bold',
@@ -174,16 +180,17 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       })
       .setOrigin(1, 0);
 
-    this.interactionPanel = this.add.container(0, 0, [
-      this.interactionPanelBackground,
-      this.interactionPanelTitle,
+    const interactionPanel = this.add.container(0, 0, [
+      interactionPanelBackground,
+      interactionPanelTitle,
       this.interactionPanelZoneTitle,
       this.interactionPanelAction,
     ]);
 
-    this.interactionPanel.setVisible(true);
+    interactionPanel.setVisible(true);
   }
 
+  // Creates keyboard controls for player movement and interaction.
   private createKeyboardControls(): void {
     this.cursors = this.input.keyboard!.createCursorKeys();
 
@@ -197,6 +204,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.interactKeyRu = this.input.keyboard!.addKey('У');
   }
 
+  // Reads keyboard state and moves the player unless the next position is blocked.
   private movePlayer(): void {
     const { dx, dy } = this.getMovementDirection();
 
@@ -212,6 +220,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     }
   }
 
+  // Returns movement direction based on WASD and arrow keys.
   private getMovementDirection(): { dx: number; dy: number } {
     let dx = 0;
     let dy = 0;
@@ -235,16 +244,27 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     return { dx, dy };
   }
 
-  private updateInteractionHint(): void {
+  // Updates the interaction hint and panel based on the player's proximity to zones.
+  private updateInteractionUi(): void {
     const activeZone = this.findActiveZone();
 
     if (!activeZone) {
       this.interactionKeyBox.setVisible(false);
       this.interactionKeyText.setVisible(false);
 
-      this.interactionPanelZoneTitle.setText('No active zone');
-      this.interactionPanelAction.setText('Move closer to a desk');
+      if (this.activeZoneId !== null) {
+        this.activeZoneId = null;
+        this.interactionPanelZoneTitle.setText('No active zone');
+        this.interactionPanelAction.setText('Move closer to a desk');
+      }
+
       return;
+    }
+
+    if (this.activeZoneId !== activeZone.config.id) {
+      this.activeZoneId = activeZone.config.id;
+      this.interactionPanelZoneTitle.setText(activeZone.config.label);
+      this.interactionPanelAction.setText(activeZone.config.actionLabel);
     }
 
     const keyX = this.player.x;
@@ -257,12 +277,9 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.interactionPanelAction.setText(activeZone.config.actionLabel);
   }
 
-  private findActiveZone():
-    | {
-        config: OfficeZone;
-        object: Phaser.GameObjects.Rectangle;
-      }
-    | undefined {
+  // Checks if the player is currently overlapping with any interactive office zone.
+  // Finds the first office zone whose interaction area overlaps the player.
+  private findActiveZone(): OfficeZoneObject | undefined {
     const playerBounds = this.getPlayerBounds(this.player.x, this.player.y);
 
     return this.zoneObjects.find((zone) => {
@@ -279,6 +296,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     });
   }
 
+  // Keeps the player inside the scene boundaries.
   private clampPlayerPosition(): void {
     const halfPlayer = this.config.player.size / 2;
 
@@ -298,6 +316,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.player.y = Phaser.Math.Clamp(this.player.y, minY, maxY);
   }
 
+  // Updates the player's label position to be above the player.
   private updatePlayerLabelPosition(): void {
     const labelX = Phaser.Math.Clamp(
       this.player.x - this.playerLabel.width / 2,
@@ -314,6 +333,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.playerLabel.setPosition(labelX, labelY);
   }
 
+  // Checks if the player's next position would overlap with any office zone's collision area.
   private isPlayerPositionBlocked(x: number, y: number): boolean {
     const playerBounds = this.getPlayerBounds(x, y);
 
@@ -331,6 +351,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     });
   }
 
+  // Creates a rectangle representing the player's collision bounds.
   private getPlayerBounds(x: number, y: number): Phaser.Geom.Rectangle {
     const halfPlayer = this.config.player.size / 2;
 
@@ -342,6 +363,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     );
   }
 
+  // Handles E / У key press and maps office zone actions to game state changes.
   private handleInteraction(): void {
     const isInteractionKeyPressed =
       Phaser.Input.Keyboard.JustDown(this.interactKey) ||
@@ -357,22 +379,34 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       return;
     }
 
-    switch (activeZone.config.actionType) {
+    this.runOfficeAction(activeZone.config.actionType);
+  }
+
+  private runOfficeAction(actionType: OfficeActionType): void {
+    switch (actionType) {
       case 'study-angular':
         this.gameStateService.learnAngular();
         break;
+
       case 'practice-typescript':
         this.gameStateService.learnTypescript();
         break;
+
       case 'practice-rxjs':
         this.gameStateService.practiceRxjs();
         break;
+
       case 'practice-english':
         this.gameStateService.learnEnglish();
         break;
+
       case 'coffee-break':
         this.gameStateService.rest();
         break;
+
+      default: {
+        return actionType;
+      }
     }
   }
 }

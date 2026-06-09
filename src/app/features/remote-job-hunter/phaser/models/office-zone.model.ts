@@ -1,9 +1,16 @@
+import Phaser from 'phaser';
+
 export type OfficeActionType =
   | 'study-angular'
   | 'practice-typescript'
   | 'practice-rxjs'
   | 'practice-english'
   | 'coffee-break';
+
+export interface OfficeZoneObject {
+  config: OfficeZone;
+  object: Phaser.GameObjects.Rectangle;
+}
 
 export interface OfficeZone {
   id: string;
