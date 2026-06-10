@@ -68,9 +68,9 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
     items: [
       {
         id: 'angular-desk',
-        label: 'Angular Desk',
-        actionLabel: 'Study Angular',
-        feedbackLabel: '+5 Angular',
+        label: { en: 'Angular Desk', ru: 'Angular стол' },
+        actionLabel: { en: 'Study Angular', ru: 'Изучать Angular' },
+        feedbackLabel: { en: '+5 Angular', ru: '+5 Angular' },
         feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.cyan.hex,
         actionType: 'study-angular',
         x: 140,
@@ -79,9 +79,9 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
       },
       {
         id: 'ts-shelf',
-        label: 'TS Shelf',
-        actionLabel: 'Practice TypeScript',
-        feedbackLabel: '+5 TypeScript',
+        label: { en: 'TS Shelf', ru: 'TS полка' },
+        actionLabel: { en: 'Practice TypeScript', ru: 'Практиковать TypeScript' },
+        feedbackLabel: { en: '+5 TypeScript', ru: '+5 TypeScript' },
         feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.cyan.hex,
         actionType: 'practice-typescript',
         x: 820,
@@ -90,9 +90,9 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
       },
       {
         id: 'rxjs-shelf',
-        label: 'RxJS Shelf',
-        actionLabel: 'Practice RxJS',
-        feedbackLabel: '+4 RxJS',
+        label: { en: 'RxJS Shelf', ru: 'RxJS полка' },
+        actionLabel: { en: 'Practice RxJS', ru: 'Практиковать RxJS' },
+        feedbackLabel: { en: '+4 RxJS', ru: '+4 RxJS' },
         feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.cyan.hex,
         actionType: 'practice-rxjs',
         x: 140,
@@ -101,9 +101,9 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
       },
       {
         id: 'english-book',
-        label: 'English Book',
-        actionLabel: 'Practice English',
-        feedbackLabel: '+3 English',
+        label: { en: 'English Book', ru: 'English книга' },
+        actionLabel: { en: 'Practice English', ru: 'Практиковать English' },
+        feedbackLabel: { en: '+3 English', ru: '+3 English' },
         feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.cyan.hex,
         actionType: 'practice-english',
         x: 820,
@@ -112,9 +112,9 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
       },
       {
         id: 'coffee-break',
-        label: 'Coffee Break',
-        actionLabel: 'Restore Energy',
-        feedbackLabel: '+Energy',
+        label: { en: 'Coffee Break', ru: 'Кофе-пауза' },
+        actionLabel: { en: 'Restore Energy', ru: 'Восстановить энергию' },
+        feedbackLabel: { en: '+Energy', ru: '+Энергия' },
         feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.amber,
         actionType: 'coffee-break',
         x: 500,
@@ -125,7 +125,22 @@ export const REMOTE_JOB_HUNTER_SCENE: RemoteJobHunterSceneConfig = {
   },
   interaction: {
     keyText: 'E',
-    panelTitle: 'Interaction',
+    panelTitle: {
+      en: 'Interaction',
+      ru: 'Действие',
+    },
+    noActiveZone: {
+      en: 'No active zone',
+      ru: 'Нет активной зоны',
+    },
+    moveCloser: {
+      en: 'Move closer to a desk',
+      ru: 'Подойдите ближе к столу',
+    },
+    needRest: {
+      en: 'Need rest',
+      ru: 'Нужно отдохнуть',
+    },
     hintFontSize: '14px',
     keyBoxSize: 24,
     feedbackFontSize: '14px',

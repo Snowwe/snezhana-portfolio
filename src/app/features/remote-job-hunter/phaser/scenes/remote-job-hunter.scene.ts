@@ -2,12 +2,14 @@ import Phaser from 'phaser';
 
 import { REMOTE_JOB_HUNTER_SCENE } from '@features/remote-job-hunter/phaser/constants/remote-job-hunter-scene.constants';
 import {
-  OfficeActionType,
+  OfficeText,
   OfficeZone,
   OfficeZoneObject,
 } from '@features/remote-job-hunter/phaser/models/office-zone.model';
 
 import { GameStateService } from '@features/remote-job-hunter/services/game-state.service';
+import { LanguageService } from '@core/services/language';
+import { Language } from '@core/models/language.model';
 
 export class RemoteJobHunterScene extends Phaser.Scene {
   // Static scene configuration: layout, colors, player settings and office zones.
@@ -36,16 +38,23 @@ export class RemoteJobHunterScene extends Phaser.Scene {
   private activeZoneId: string | null = null;
   private actionFeedbackText!: Phaser.GameObjects.Text;
   private lastInteractionAt = 0;
+  private activeLanguage!: Language;
+  private interactionPanelTitle!: Phaser.GameObjects.Text;
 
   // Office zones with their visual rectangle and action config.
   private zoneObjects: OfficeZoneObject[] = [];
 
-  constructor(private readonly gameStateService: GameStateService) {
+  constructor(
+    private readonly gameStateService: GameStateService,
+    private readonly languageService: LanguageService,
+  ) {
     super('remote-job-hunter');
   }
 
   // Phaser lifecycle: creates all static and interactive scene objects.
   create(): void {
+    this.activeLanguage = this.languageService.language();
+
     this.createTitle();
     this.createZones();
     this.createPlayer();
@@ -60,6 +69,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.movePlayer();
     this.clampPlayerPosition();
     this.updatePlayerLabelPosition();
+    this.updateLanguageContent();
     this.updateInteractionUi();
     this.handleInteraction();
   }
@@ -73,14 +83,11 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
   // Creates all office zones from config.
   private createZones(): void {
-    this.zoneObjects = this.config.zones.items.map((zone) => ({
-      config: zone,
-      object: this.createZone(zone),
-    }));
+    this.zoneObjects = this.config.zones.items.map((zone) => this.createZone(zone));
   }
 
   // Creates one interactive office zone and its centered label.
-  private createZone(zone: OfficeZone): Phaser.GameObjects.Rectangle {
+  private createZone(zone: OfficeZone): OfficeZoneObject {
     const zoneObject = this.add.rectangle(
       zone.x,
       zone.y,
@@ -90,8 +97,8 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       this.config.zones.opacity,
     );
 
-    this.add
-      .text(zone.x, zone.y, zone.label, {
+    const zoneLabel = this.add
+      .text(zone.x, zone.y, this.getText(zone.label), {
         color: this.config.colors.text,
         fontSize: this.config.zones.labelFontSize,
         fontStyle: 'bold',
@@ -99,7 +106,11 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    return zoneObject;
+    return {
+      config: zone,
+      object: zoneObject,
+      label: zoneLabel,
+    };
   }
 
   private createPlayer(): void {
@@ -161,11 +172,16 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     const rightX = panel.x + panel.width / 2 - 18;
     const textY = panel.y - 7;
 
-    const interactionPanelTitle = this.add.text(leftX, textY, this.config.interaction.panelTitle, {
-      color: this.config.colors.title,
-      fontSize: '12px',
-      fontStyle: 'bold',
-    });
+    this.interactionPanelTitle = this.add.text(
+      leftX,
+      textY,
+      this.getText(this.config.interaction.panelTitle),
+      {
+        color: this.config.colors.title,
+        fontSize: '12px',
+        fontStyle: 'bold',
+      },
+    );
 
     this.interactionPanelZoneTitle = this.add
       .text(middleX, textY, '', {
@@ -185,7 +201,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
     const interactionPanel = this.add.container(0, 0, [
       interactionPanelBackground,
-      interactionPanelTitle,
+      this.interactionPanelTitle,
       this.interactionPanelZoneTitle,
       this.interactionPanelAction,
     ]);
@@ -269,8 +285,8 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
       if (this.activeZoneId !== null) {
         this.activeZoneId = null;
-        this.interactionPanelZoneTitle.setText('No active zone');
-        this.interactionPanelAction.setText('Move closer to a desk');
+        this.interactionPanelZoneTitle.setText(this.getText(this.config.interaction.noActiveZone));
+        this.interactionPanelAction.setText(this.getText(this.config.interaction.moveCloser));
       }
 
       return;
@@ -278,8 +294,8 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
     if (this.activeZoneId !== activeZone.config.id) {
       this.activeZoneId = activeZone.config.id;
-      this.interactionPanelZoneTitle.setText(activeZone.config.label);
-      this.interactionPanelAction.setText(activeZone.config.actionLabel);
+      this.interactionPanelZoneTitle.setText(this.getText(activeZone.config.label));
+      this.interactionPanelAction.setText(this.getText(activeZone.config.actionLabel));
     }
 
     const keyX = this.player.x;
@@ -287,9 +303,6 @@ export class RemoteJobHunterScene extends Phaser.Scene {
 
     this.interactionKeyBox.setPosition(keyX, keyY).setVisible(true);
     this.interactionKeyText.setPosition(keyX, keyY).setVisible(true);
-
-    this.interactionPanelZoneTitle.setText(activeZone.config.label);
-    this.interactionPanelAction.setText(activeZone.config.actionLabel);
   }
 
   // Checks if the player is currently overlapping with any interactive office zone.
@@ -348,6 +361,24 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.playerLabel.setPosition(labelX, labelY);
   }
 
+  private updateLanguageContent(): void {
+    const language = this.languageService.language();
+
+    if (this.activeLanguage === language) {
+      return;
+    }
+
+    this.activeLanguage = language;
+
+    this.zoneObjects.forEach((zone) => {
+      zone.label.setText(this.getText(zone.config.label));
+    });
+
+    this.interactionPanelTitle.setText(this.getText(this.config.interaction.panelTitle));
+
+    this.activeZoneId = null;
+  }
+
   // Checks if the player's next position would overlap with any office zone's collision area.
   private isPlayerPositionBlocked(x: number, y: number): boolean {
     const playerBounds = this.getPlayerBounds(x, y);
@@ -395,17 +426,21 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     }
 
     this.lastInteractionAt = this.time.now;
-    this.runOfficeAction(activeZone.config.actionType);
+    this.runOfficeAction(activeZone);
   }
 
   private isInteractionOnCooldown(): boolean {
     return this.time.now - this.lastInteractionAt < this.config.interaction.cooldownMs;
   }
 
-  private runOfficeAction(actionType: OfficeActionType): void {
-    const result = this.gameStateService.runOfficeAction(actionType);
+  private runOfficeAction(activeZone: OfficeZoneObject): void {
+    const result = this.gameStateService.runOfficeAction(activeZone.config.actionType);
 
-    this.showActionFeedback(result.feedbackLabel, result.feedbackColor);
+    const feedbackLabel = result.success
+      ? this.getText(activeZone.config.feedbackLabel)
+      : this.getText(this.config.interaction.needRest);
+
+    this.showActionFeedback(feedbackLabel, result.feedbackColor);
   }
 
   private showActionFeedback(message: string, color: number): void {
@@ -428,5 +463,9 @@ export class RemoteJobHunterScene extends Phaser.Scene {
         this.actionFeedbackText.setVisible(false);
       },
     });
+  }
+
+  private getText(text: OfficeText): string {
+    return text[this.activeLanguage];
   }
 }

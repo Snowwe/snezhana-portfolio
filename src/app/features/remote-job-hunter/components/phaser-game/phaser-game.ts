@@ -32,7 +32,11 @@ export class PhaserGame implements OnDestroy {
   constructor() {
     afterNextRender(() => {
       this.game = new Phaser.Game(
-        createRemoteJobHunterGameConfig(this.gameContainer().nativeElement, this.gameStateService),
+        createRemoteJobHunterGameConfig(
+          this.gameContainer().nativeElement,
+          this.gameStateService,
+          this.languageService,
+        ),
       );
     });
   }

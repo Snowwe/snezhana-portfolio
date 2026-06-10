@@ -10,13 +10,19 @@ export type OfficeActionType =
 export interface OfficeZoneObject {
   config: OfficeZone;
   object: Phaser.GameObjects.Rectangle;
+  label: Phaser.GameObjects.Text;
+}
+
+export interface OfficeText {
+  en: string;
+  ru: string;
 }
 
 export interface OfficeZone {
   id: string;
-  label: string;
-  actionLabel: string;
-  feedbackLabel: string;
+  label: OfficeText;
+  actionLabel: OfficeText;
+  feedbackLabel: OfficeText;
   feedbackColor: number;
   actionType: OfficeActionType;
   x: number;
@@ -71,7 +77,10 @@ export interface RemoteJobHunterSceneConfig {
   };
   interaction: {
     keyText: string;
-    panelTitle: string;
+    panelTitle: OfficeText;
+    noActiveZone: OfficeText;
+    moveCloser: OfficeText;
+    needRest: OfficeText;
     hintFontSize: string;
     keyBoxSize: number;
     feedbackFontSize: string;
