@@ -125,6 +125,15 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         description:
           'Added learning desks, movement boundaries, furniture collisions, interaction hints and centralized Phaser scene configuration.',
       },
+      {
+        day: 'Day 7',
+        title: 'Office actions and Angular state',
+        description:
+          'Connected Phaser office interactions with Angular Signals.\n' +
+          'Added E-key actions for learning and energy recovery.\n' +
+          'Implemented office zones, collision handling and interaction UI.\n' +
+          'Refactored scene structure, improved typing and reduced unnecessary updates.',
+      },
     ],
   },
 
@@ -251,6 +260,13 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         title: 'Прототип интерактивного офиса',
         description:
           'Добавила обучающие столы, ограничения перемещения, коллизии с мебелью, подсказки взаимодействия и централизованную конфигурацию сцены Phaser.',
+      },
+      {
+        day: 'День 7',
+        title: 'Действия в офисе и состояние Angular',
+        description: `Связала действия в офисе Phaser с состоянием игры на Angular: нажатие E возле столов теперь прокачивает навыки или восстанавливает энергию, а Signals автоматически обновляют интерфейс.
+          Реализовала офисные зоны, обработку коллизий и пользовательский интерфейс взаимодействия.
+          Рефакторинг структуры сцены, улучшение типизации и уменьшение ненужных обновлений.`,
       },
     ],
   },
