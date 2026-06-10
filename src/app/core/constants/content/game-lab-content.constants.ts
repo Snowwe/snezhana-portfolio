@@ -134,6 +134,12 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
           'Implemented office zones, collision handling and interaction UI.\n' +
           'Refactored scene structure, improved typing and reduced unnecessary updates.',
       },
+      {
+        day: 'Day 8',
+        title: 'Office feedback and localization',
+        description:
+          'Added visual feedback, cooldown, resource-aware messages and EN/RU localization for Phaser office interactions.',
+      },
     ],
   },
 
@@ -267,6 +273,12 @@ export const GAME_LAB_CONTENT: Record<'en' | 'ru', GameLabContent> = {
         description: `Связала действия в офисе Phaser с состоянием игры на Angular: нажатие E возле столов теперь прокачивает навыки или восстанавливает энергию, а Signals автоматически обновляют интерфейс.
           Реализовала офисные зоны, обработку коллизий и пользовательский интерфейс взаимодействия.
           Рефакторинг структуры сцены, улучшение типизации и уменьшение ненужных обновлений.`,
+      },
+      {
+        day: 'День 8',
+        title: 'Feedback и локализация офиса',
+        description:
+          'Добавила визуальный feedback, cooldown, сообщения при нехватке ресурсов и EN/RU локализацию для взаимодействий в офисе Phaser.',
       },
     ],
   },
