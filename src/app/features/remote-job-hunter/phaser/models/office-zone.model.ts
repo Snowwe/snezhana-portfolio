@@ -16,6 +16,8 @@ export interface OfficeZone {
   id: string;
   label: string;
   actionLabel: string;
+  feedbackLabel: string;
+  feedbackColor: number;
   actionType: OfficeActionType;
   x: number;
   y: number;
@@ -72,6 +74,9 @@ export interface RemoteJobHunterSceneConfig {
     panelTitle: string;
     hintFontSize: string;
     keyBoxSize: number;
+    feedbackFontSize: string;
+    feedbackDuration: number;
+    cooldownMs: number;
     panel: {
       x: number;
       y: number;

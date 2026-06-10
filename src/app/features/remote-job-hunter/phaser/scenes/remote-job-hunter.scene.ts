@@ -34,6 +34,8 @@ export class RemoteJobHunterScene extends Phaser.Scene {
   private interactionPanelZoneTitle!: Phaser.GameObjects.Text;
   private interactionPanelAction!: Phaser.GameObjects.Text;
   private activeZoneId: string | null = null;
+  private actionFeedbackText!: Phaser.GameObjects.Text;
+  private lastInteractionAt = 0;
 
   // Office zones with their visual rectangle and action config.
   private zoneObjects: OfficeZoneObject[] = [];
@@ -49,6 +51,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     this.createPlayer();
     this.createInteractionKeyHint();
     this.createInteractionPanel();
+    this.createActionFeedback();
     this.createKeyboardControls();
   }
 
@@ -188,6 +191,18 @@ export class RemoteJobHunterScene extends Phaser.Scene {
     ]);
 
     interactionPanel.setVisible(true);
+  }
+
+  // Creates the action feedback text, which appears above the player after an action.
+  private createActionFeedback(): void {
+    this.actionFeedbackText = this.add
+      .text(0, 0, '', {
+        color: this.config.colors.title,
+        fontSize: this.config.interaction.feedbackFontSize,
+        fontStyle: 'bold',
+      })
+      .setOrigin(0.5)
+      .setVisible(false);
   }
 
   // Creates keyboard controls for player movement and interaction.
@@ -369,7 +384,7 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       Phaser.Input.Keyboard.JustDown(this.interactKey) ||
       Phaser.Input.Keyboard.JustDown(this.interactKeyRu);
 
-    if (!isInteractionKeyPressed) {
+    if (!isInteractionKeyPressed || this.isInteractionOnCooldown()) {
       return;
     }
 
@@ -379,34 +394,39 @@ export class RemoteJobHunterScene extends Phaser.Scene {
       return;
     }
 
+    this.lastInteractionAt = this.time.now;
     this.runOfficeAction(activeZone.config.actionType);
   }
 
+  private isInteractionOnCooldown(): boolean {
+    return this.time.now - this.lastInteractionAt < this.config.interaction.cooldownMs;
+  }
+
   private runOfficeAction(actionType: OfficeActionType): void {
-    switch (actionType) {
-      case 'study-angular':
-        this.gameStateService.learnAngular();
-        break;
+    const result = this.gameStateService.runOfficeAction(actionType);
 
-      case 'practice-typescript':
-        this.gameStateService.learnTypescript();
-        break;
+    this.showActionFeedback(result.feedbackLabel, result.feedbackColor);
+  }
 
-      case 'practice-rxjs':
-        this.gameStateService.practiceRxjs();
-        break;
+  private showActionFeedback(message: string, color: number): void {
+    this.actionFeedbackText
+      .setText(message)
+      .setColor(`#${color.toString(16).padStart(6, '0')}`)
+      .setPosition(this.player.x, this.player.y - 44)
+      .setAlpha(1)
+      .setVisible(true);
 
-      case 'practice-english':
-        this.gameStateService.learnEnglish();
-        break;
+    this.tweens.killTweensOf(this.actionFeedbackText);
 
-      case 'coffee-break':
-        this.gameStateService.rest();
-        break;
-
-      default: {
-        return actionType;
-      }
-    }
+    this.tweens.add({
+      targets: this.actionFeedbackText,
+      y: this.actionFeedbackText.y - 24,
+      alpha: 0,
+      duration: this.config.interaction.feedbackDuration,
+      ease: 'Power2',
+      onComplete: () => {
+        this.actionFeedbackText.setVisible(false);
+      },
+    });
   }
 }

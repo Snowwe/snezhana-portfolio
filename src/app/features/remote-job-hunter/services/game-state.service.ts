@@ -1,10 +1,13 @@
-import { Injectable, computed, signal, effect } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 
 import { DEFAULT_PLAYER } from '@features/remote-job-hunter/constants/default-player.constants';
 import { JOB_OFFERS } from '@features/remote-job-hunter/constants/job-offers.constants';
 import { GameLogEntry } from '@features/remote-job-hunter/models/game-log-entry.model';
 import { JobOffer } from '@features/remote-job-hunter/models/job-offer.model';
 import { PlayerStats } from '@features/remote-job-hunter/models/player.model';
+import { REMOTE_JOB_HUNTER_SCENE_COLORS } from '@features/remote-job-hunter/phaser/constants/remote-job-hunter-scene.constants';
+import { OfficeActionType } from '@features/remote-job-hunter/phaser/models/office-zone.model';
+import { GameActionResult } from '@core/models/game-action-result.model';
 
 const STORAGE_KEY = 'remote-job-hunter-player';
 
@@ -49,20 +52,20 @@ export class GameStateService {
     return this.player()[skill] >= value;
   }
 
-  learnAngular(): void {
-    this.learnSkill('angular', 5, 10, 2, 'Studied Angular (+5)');
+  learnAngular(): boolean {
+    return this.learnSkill('angular', 5, 10, 2, 'Studied Angular (+5)');
   }
 
-  learnTypescript(): void {
-    this.learnSkill('typescript', 5, 10, 2, 'Studied TypeScript (+5)');
+  learnTypescript(): boolean {
+    return this.learnSkill('typescript', 5, 10, 2, 'Studied TypeScript (+5)');
   }
 
-  practiceRxjs(): void {
-    this.learnSkill('rxjs', 4, 12, 3, 'Practiced RxJS (+4)');
+  practiceRxjs(): boolean {
+    return this.learnSkill('rxjs', 4, 12, 3, 'Practiced RxJS (+4)');
   }
 
-  learnEnglish(): void {
-    this.learnSkill('english', 3, 8, 1, 'Studied English (+3)');
+  learnEnglish(): boolean {
+    return this.learnSkill('english', 3, 8, 1, 'Studied English (+3)');
   }
 
   rest(): void {
@@ -137,6 +140,36 @@ export class GameStateService {
     return this.player().acceptedJobIds.includes(jobId);
   }
 
+  runOfficeAction(actionType: OfficeActionType): GameActionResult {
+    switch (actionType) {
+      case 'study-angular':
+        return this.runLearningAction(() => this.learnAngular(), '+5 Angular');
+
+      case 'practice-typescript':
+        return this.runLearningAction(() => this.learnTypescript(), '+5 TypeScript');
+
+      case 'practice-rxjs':
+        return this.runLearningAction(() => this.practiceRxjs(), '+4 RxJS');
+
+      case 'practice-english':
+        return this.runLearningAction(() => this.learnEnglish(), '+3 English');
+
+      case 'coffee-break':
+        this.rest();
+
+        return {
+          success: true,
+          feedbackLabel: '+Energy',
+          feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.amber,
+        };
+
+      default: {
+        const exhaustiveCheck: never = actionType;
+        return exhaustiveCheck;
+      }
+    }
+  }
+
   private canSpendResources(energyCost: number, motivationCost: number): boolean {
     return this.player().energy >= energyCost && this.player().motivation >= motivationCost;
   }
@@ -147,10 +180,10 @@ export class GameStateService {
     energyCost: number,
     motivationCost: number,
     message: string,
-  ): void {
+  ): boolean {
     if (!this.canSpendResources(energyCost, motivationCost)) {
       this.addLog('Not enough energy or motivation');
-      return;
+      return false;
     }
 
     this.player.update((player) => ({
@@ -161,6 +194,8 @@ export class GameStateService {
     }));
 
     this.addLog(message);
+
+    return true;
   }
 
   private addLog(message: string): void {
@@ -191,5 +226,23 @@ export class GameStateService {
 
   private savePlayer(): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(this.player()));
+  }
+
+  private runLearningAction(action: () => boolean, feedbackLabel: string): GameActionResult {
+    const success = action();
+
+    if (!success) {
+      return {
+        success: false,
+        feedbackLabel: 'Need rest',
+        feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.red,
+      };
+    }
+
+    return {
+      success: true,
+      feedbackLabel,
+      feedbackColor: REMOTE_JOB_HUNTER_SCENE_COLORS.cyan.hex,
+    };
   }
 }
